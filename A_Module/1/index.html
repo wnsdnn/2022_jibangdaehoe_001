@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2022</title>
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+    <div id="app">
+        <input type="radio" id="menu_on" name="menu">
+        <input type="radio" id="menu_off" name="menu" checked>
+        <input type="radio" id="sns_on" name="sns">
+        <input type="radio" id="sns_off" name="sns" checked>
+        <header>
+            <div class="container flex">
+                <div class="logo">
+                    <img src="./img/slogan.png" alt="logoImg" title="logoImg">
+                </div>
+                <div class="menu">
+                    <h2>
+                        <label for="menu_on">MENU</label>
+                    </h2>
+                </div>
+                <div class="sns">
+                    <div class="labels flex">
+                        <label class="sns_on" for="sns_on">공유하기</label>
+                        <label class="sns_off" for="sns_off">X</label>
+                    </div>
+                    <div class="icon_box">
+                        <div class="icon1 icon">
+                            <a href="#"><img src="./img/icon1.png" alt="iconImg1" title="iconImg1"></a>
+                        </div>
+                        <div class="icon2 icon">
+                            <a href="#"><img src="./img/icon2.png" alt="iconImg2" title="iconImg2"></a>
+                        </div>
+                        <div class="icon3 icon">
+                            <a href="#"><img src="./img/icon3.png" alt="iconImg3" title="iconImg3"></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <main>
+            <section class="content">
+                <div class="item_container flex">
+                    <a href="./sub1.html">
+                        <div class="item">
+                            <div class="photo flex">
+                                <img src="../(웹디자인)선수제공파일/사진/photo (5).jpg" alt="specialtyImg1" title="specialtyImg1">
+                                <img src="../(웹디자인)선수제공파일/사진/photo (9).jpg" alt="specialtyImg2" title="specialtyImg2">
+                            </div>
+                            <div class="text">
+                                <h4 class="title">특산품 안내</h4>
+                                <p>Lorem, ipsum dolor sit amet</p>
+                                <p>adipisicing voluptates.</p>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="./sub2.html">
+                        <div class="item">
+                            <div class="photo flex">
+                                <img src="../(웹디자인)선수제공파일/디자인소스/4044402.jpg" alt="eventImg1" title="eventImg1">
+                                <img src="../(웹디자인)선수제공파일/사진/photo (14).jpg" alt="eventImg2" title="eventImg2">
+                            </div>
+                            <div class="text">
+                                <h4 class="title">이벤트</h4>
+                                <p>Lorem, ipsum dolor sit amet</p>
+                                <p>adipisicing voluptates.</p>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="./sub3.html">
+                        <div class="item">
+                            <div class="photo flex">
+                                <img src="../(웹디자인)선수제공파일/사진/photo (4).jpg" alt="purchaseImg1" title="purchaseImg1">
+                                <img src="../(웹디자인)선수제공파일/사진/photo (3).jpg" alt="purchaseImg2" title="purchaseImg2">
+                            </div>
+                            <div class="text">
+                                <h4 class="title">구매후기</h4>
+                                <p>Lorem, ipsum dolor sit amet</p>
+                                <p>adipisicing voluptates.</p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </section>
+        </main>
+        <footer>
+            <p class="copyright">Copyright (C) Gyeongsangbuk-do. All Rights Reserved.</p>
+        </footer>
+        <div class="popup flex">
+            <div class="box">
+                <ul class="menu">
+                    <li>
+                        <p><a href="#">사용자 페이지</a></p>
+                        <ul>
+                            <li><a href="./index.html" class="high">메인페이지</a></li>
+                            <li><a href="./sub1.html">특산품 안내</a></li>
+                            <li><a href="./sub2.html">이벤트</a></li>
+                            <li><a href="./sub3.html">구매후기</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <p><a href="#">관리자 페이지</a></p>
+                        <ul>
+                            <li><a href="#">특산품 관리</a></li>
+                            <li><a href="#">이벤트 관리</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <div class="close_btn">
+                    <label for="menu_off">X</label>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

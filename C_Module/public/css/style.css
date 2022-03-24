@@ -1,0 +1,57 @@
+*{box-sizing: border-box;}
+a{text-decoration: none; color: inherit;}
+.flex{display: flex;}
+.grid{display: grid;}
+.none{display: none;}
+
+section.specialty .item-container{width: 1200px; margin: 0 auto; grid-template-columns: repeat(4, 1fr); gap: 15px;}
+section.specialty .item-container fieldset{width: 300px; height: 400px; padding: 10px 15px;}
+section.specialty .item-container legend{font-size: 25px;}
+section.specialty .item-container img{object-fit: cover; width: 100%; height: 250px; border-radius: 10px;}
+
+section.specialty_admin .item-container{width: 1200px; margin: 0 auto; grid-template-columns: repeat(4, 1fr); gap: 15px;}
+section.specialty_admin .item-container fieldset{width: 300px; height: 410px; padding: 10px 15px;}
+section.specialty_admin .item-container legend{font-size: 25px;}
+section.specialty_admin .item-container button{cursor: pointer;}
+section.specialty_admin .item-container img{object-fit: cover; width: 100%; height: 250px; border-radius: 10px;}
+
+
+section.event_admin .sreach_box{margin: 20px auto;}
+section.event_admin table{margin: 0 auto; border: 1px solid #333; border-left: none; border-right: none; border-collapse: collapse; text-align: center;}
+section.event_admin table tr td, th{width: 170px; line-height: 70px;}
+section.event_admin table tr{display: flex; border: 1px solid #333; border-left: none; border-right: none; cursor: pointer;}
+section.event_admin table tr td{ padding: 5px 10px; line-height: 70px !important;}
+section.event_admin table td{display: flex; justify-content: center; align-items: center;}
+
+section.reviewList table{margin: 0 auto; border: 1px solid #333; border-left: none; border-right: none; border-collapse: collapse; text-align: center;}
+section.reviewList table tr td, th{width: 170px; line-height: 70px;}
+section.reviewList table tr{display: flex; border: 1px solid #333; border-left: none; border-right: none; cursor: pointer;}
+section.reviewList table tr td{padding: 5px 10px; line-height: 70px !important;}
+section.reviewList table tr td p{width: 100%; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;}
+section.reviewList table td{display: flex; justify-content: center; align-items: center;}
+
+section.reviewList table td img{object-fit: cover; width: 100%; height: 70px;}
+
+section.reviewList .popup{position: fixed; width: 100%; height: 100%; left: 0; top: 0; justify-content: center; align-items: center; background: rgba(0, 0, 0, .7);}
+section.reviewList .popup>div{width: 65%; height: 75%; background: #fff;}
+
+section.reviewList .popup>div form{width: 100%; height: 100%;}
+section.reviewList .popup>div div.content{position: relative; width: 100%; height: 100%; padding: 20px; justify-content: space-around; align-items: center;}
+section.reviewList .popup>div .content .text{width: 30%; font-size: 17px; font-weight: bold;}
+section.reviewList .popup>div .content .text p{line-height: 35px;}
+section.reviewList .popup>div .content .text p.content{align-items: flex-start; flex-direction: column;}
+section.reviewList .popup>div .content .text p.content textarea{width: 100%; resize: none; outline: none; height: 80px;}
+section.reviewList .popup>div .content .text input{line-height: 35px; margin-left: 10px; border: none; outline: none;}
+
+section.reviewList .popup>div .content .photo{width: 40%; height: 70%;}
+section.reviewList .popup>div .content .photo .photos{width: 100%; height: 20%; margin: 20px 0; overflow: hidden;}
+section.reviewList .popup>div .content .photo .photos img{object-fit: cover; width: calc(100%/5); height: 100%; border: 1px solid #333; cursor: pointer;}
+section.reviewList .popup>div .content .photo>img{object-fit: cover; width: 100%; height: 80%;}
+section.reviewList .popup>div .content .close_btn{position: absolute; font-size: 30px; text-align: center; top: 5px; right: 50px; cursor: pointer;}
+
+section.reviewList .popup>div .content .arrow_btn{width: 70px; height: 70px; background: none; border: 1px solid #eee; font-size: 35px; font-weight: bold; border-radius: 100%; cursor: pointer; transition: .5s;}
+section.reviewList .popup>div .content .arrow_btn:hover{background: #333; color: #fff; transition: .5s;}
+
+
+
+section.review_fun i{width: 33px; font-size: 35px; cursor: pointer;}

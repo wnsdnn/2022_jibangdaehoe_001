@@ -1,0 +1,225 @@
+*{margin: 0; padding: 0; box-sizing: border-box;}
+ul, li{list-style: none;}
+a{text-decoration: none; color: inherit;}
+.flex{display: flex;}
+.grid{display: grid;}
+.none{display: none;}
+input[type="radio"]{display: none;}
+
+/* 헤더 부분 */
+#app{width: 100%; height: 100vh;}
+
+#app header{position: fixed; width: 100%; height: 100px; padding: 0 70px; justify-content: space-between; align-items: center; z-index: 1;}
+#app header label{display: block; font-weight: bold; font-size: 30px; cursor: pointer;}
+
+#app header .sns{position: relative; width: 170px; padding: 0 45px; height: auto; text-align: center;}
+#app header .sns .sns_box img{position: absolute; top: 120%; left: 500px; object-fit: cover; width: 50px; height: 50px; transition: .5s;}
+
+input#sns_on:checked~ header .sns_box img:nth-child(1){left: 0px; transition: .5s;}
+input#sns_on:checked~ header .sns_box img:nth-child(2){left: 60px; transition: .6s;}
+input#sns_on:checked~ header .sns_box img:nth-child(3){left: 120px; transition: .7s;}
+
+input#sns_on:checked~ header .sns label.sns_on{display: none;}
+input#sns_off:checked~ header .sns label.sns_off{display: none;}
+
+#app header .sns label{font-size: 25px;}
+#app header label:after{display: block; content: ""; width: 0%; height: 3px; background: #333; transition: .3s;}
+#app header label:hover:after{width: 100%; transition: .3s;}
+
+#app .popup{position: fixed; width: 100%; height: 100%; left: 0; top: -120%; justify-content: center; align-items: center; background: rgba(0, 0, 0, .8); transition: .5s;}
+#app .popup .menu{position: relative; width: 400px; height: 600px; padding: 75px 40px; background: #000; color: #fff;}
+#app .popup .menu ul{font-size: 32px; line-height: 50px;}
+#app .popup .menu ul li{padding: 5px 45px; font-size: 25px; line-height: 45px;}
+#app .popup .menu ul li.high{color: red;}
+#app .popup .menu .close_btn{position: absolute; right: 40px; top: 30px; font-size: 35px;}
+#app .popup .menu .close_btn label{display: block; cursor: pointer;}
+
+#menu_on:checked~ .popup{top: 0; transition: .5s;}
+
+/* 메인 */
+#app{grid-template-rows: auto 30px;}
+#app main{position: relative; width: 100%; justify-content: center; align-items: center; gap: 100px;}
+#app main section .high{color: blueviolet;}
+
+#app main.main>section{position: relative; width: 370px; height: 650px; border: 2px solid #eee; border-radius: 10px; overflow: hidden; transform: rotate(.001deg); cursor: pointer; transition: all .5s;}
+#app main.main>section .sub_img{position: absolute; width: 30px; height: 30px; top: 15px; right: 15px;}
+#app main.main>section .sub_img img{object-fit: cover; width: 100%; height: 100%; filter: opacity(.7);}
+
+#app main.main>section:hover{animation-play-state: paused !important; box-shadow: 0 0 5px #ddd; transform: scale(.97) !important; transition: all .5s;}
+#app main.main>section .photo{width: 100%; height: 75%;}
+#app main.main>section .text{height: 20%; color: #a0a0a0; padding: 15px;}
+#app main.main>section .text h3{font-size: 19px;}
+#app main.main>section .text p{padding: 5px 0; font-size: 16px;}
+
+#app main.main>section img{display: block; object-fit: cover; width: 100%; height: 100%;}
+
+#app main.main section.specialty{top: -10px; animation: content_move 3s infinite linear;}
+#app main.main section.event{top: 45px; animation: content_move2 3s infinite linear;}
+#app main.main section.review{top: -5px; animation: content_move3 3s infinite linear;}
+
+#app main>.box{position: fixed; font-size: 23px; cursor: pointer;}
+#app main>.box::after{position: absolute; display: block; content: ""; width: 2px; height: 100%; left: 50%; top: -110%; background: #000; transform: none;}
+#app main>.left_box{top: 50%; left: 10px; transform: rotate(-90deg);}
+#app main>.right_box{top: 50%; right: 10px; transform: rotate(90deg);}
+
+
+/* 서브1 페이지 */
+#app main.sub1{padding-top: 120px;}
+#app main.sub1 section.container{width: 1200px; margin: 0 auto; padding-bottom: 200px; overflow: hidden;}
+
+#app main h3.title{padding-left: 20px; border-left: 7px solid slateblue; font-size: 30px; margin: 40px 0;}
+
+#app main.sub1 .map{position: relative; width: 100%;}
+#app main.sub1 .map .text li{position: absolute; width: 90px; line-height: 40px; height: 40px; left: 0; top: 0; font-size: 25px; color: #333; font-weight: bold; cursor: pointer; transition: .3s;}
+#app main.sub1 .map .text li:hover{color: blueviolet; transition: .3s;}
+
+#app main.sub1 .map .text li .content_box{position: relative; width: 270px; height: 230px; left: 10px; top: 2000px; padding: 10px 15px; background: #fff; border: 2px solid #ddd; border-radius: 10px; transition: .5s; z-index: 1;}
+#app main.sub1 .map .text li .content_box img{object-fit: cover; width: 100%; height: 80%;}
+#app main.sub1 .map .text li .content_box h4{font-size: 20px; color: #555;}
+#app main.sub1 .map .text li:hover .content_box{top: 10px; transition: .5s;}
+
+#app main.sub1 .map svg{width: 100%; height: 100%;}
+
+#app main.sub1 section.container .map .text li:nth-child(1){left: 60%; top: 52.5%;}
+#app main.sub1 section.container .map .text li:nth-child(2){left: 30%; top: 55%;}
+#app main.sub1 section.container .map .text li:nth-child(3){left: 47%; top: 81%;}
+#app main.sub1 section.container .map .text li:nth-child(4){left: 23%; top: 66%;}
+#app main.sub1 section.container .map .text li:nth-child(5){left: 75%; top: 50%;}
+#app main.sub1 section.container .map .text li:nth-child(6){left: 70%; top: 33%;}
+#app main.sub1 section.container .map .text li:nth-child(7){left: 63%; top: 81%;}
+#app main.sub1 section.container .map .text li:nth-child(8){left: 86%; top: 39%;}
+#app main.sub1 section.container .map .text li:nth-child(9){left: 40%; top: 40%;}
+#app main.sub1 section.container .map .text li:nth-child(10){left: 49%; top: 49%;}
+#app main.sub1 section.container .map .text li:nth-child(11){left: 52%; top: 30%;}
+#app main.sub1 section.container .map .text li:nth-child(12){left: 42%; top: 70%;}
+#app main.sub1 section.container .map .text li:nth-child(13){left: 20%; top: 90.5%;}
+#app main.sub1 section.container .map .text li:nth-child(14){left: 11%; top: 62%;}
+#app main.sub1 section.container .map .text li:nth-child(15){left: 17%; top: 43%;}
+#app main.sub1 section.container .map .text li:nth-child(16){left: 6%; top: 25%;}
+#app main.sub1 section.container .map .text li:nth-child(17){left: 17%; top: 12%;}
+#app main.sub1 section.container .map .text li:nth-child(18){left: 32%; top: 28%;}
+
+/* 서브2 페이지 */
+#app main.sub2 section.event{width: 900px; margin: 0 auto; padding-top: 120px;}
+
+#app main.sub2 section.event .explan{position: relative; width: 100%; margin: 120px auto 250px;}
+#app main.sub2 section.event .explan fieldset{padding: 10px 50px; font-size: 17px; border: 2px solid #ddd;}
+#app main.sub2 section.event .explan fieldset legend{font-size: 35px; font-weight: bold; margin: 5px auto;}
+#app main.sub2 section.event .explan fieldset p{font-size: 20px; line-height: 25px; font-weight: bold; white-space: pre-line; color: #444;}
+#app main.sub2 section.event .explan fieldset ul{line-height: 28px; margin: 40px 0 10px; font-size: 18px; color: #444;}
+#app main.sub2 section.event .explan fieldset ul li{padding-left: 20px;}
+
+#app main.sub2 section.event .explan .photo{position: absolute; width: 400px; top: 60%; right: -15%;}
+#app main.sub2 section.event .explan .photo img{object-fit: cover; width: 100%; height: 100%;}
+
+#app main.sub2 section.event .game{width: 100%;}
+#app main.sub2 section.event .game h3{font-size: 35px; margin: 0 0 20px;}
+#app main.sub2 section.event .game .game_field{width: 100%; margin: 0 auto; padding: 15px; grid-template-columns: repeat(4, 1fr); border: 1px solid #ddd; gap: 15px;}
+#app main.sub2 section.event .game .game_field .card{width: 140px; height: 190px; margin: 0 auto; border: 1px solid #333; border-radius: 5px; cursor: pointer; transition: .3s;}
+/* #app main.sub2 section.event .game .game_field .card:hover{background: #dbcffb; transition: .3s;} */
+#app main.sub2 section.event .game .game_field .card.front{background: #333;}
+
+#app main.sub2 section.event .game .display{font-size: 25px; flex-direction: column; align-items: flex-end; gap: 10px;}
+#app main.sub2 section.event .game .display .score{font-size: 20px;}
+
+#app main.sub2 section.event .game .setting{width: 100%; margin: 20px auto;}
+#app main.sub2 section.event .game .setting .btns{width: 100%; justify-content: center; gap: 20px;}
+#app main.sub2 section.event .game .setting .btns button{width: 120px; line-height: 50px; background: #fff; color: blueviolet; border: 1px solid blueviolet; cursor: pointer; font-size: 17px; font-weight: bold; transition: .3s;}
+#app main.sub2 section.event .game .setting .btns button:hover{background: blueviolet; color: #fff; transition: .5s;}
+
+#app main.sub2 section.event .game .stamp{width: 800px; height: 300px; margin: 50px auto; padding: 10px 0px;}
+#app main.sub2 section.event .game .stamp>h4{text-align: center; font-size: 40px; margin: 5px 0 40px;}
+
+#app main.sub2 section.event .game .stamp .item-container{width: 100%; height: 200px; background: #eee; justify-content: center; align-items: center; gap: 30px;}
+#app main.sub2 section.event .game .stamp .item-container .item{width: 150px; height: 150px; justify-content: center; align-items: center; border: 4px solid #333; border-style: dashed; border-radius: 100%; transform: rotate(10deg);}
+#app main.sub2 section.event .game .stamp .item-container .item h4{width: 100%; line-height: 35px; text-align: center; border: 3px solid #333; border-left: none; border-right: none;}
+
+#app main.sub2 section.event .game .stamp .item-container .item.check{color: red; border-color: red;}
+#app main.sub2 section.event .game .stamp .item-container .item.check h4{border-color: red;}
+
+/* 서브2 페이지(B모듈) */
+#app main.sub2 section.event .game .game_field .card{position: relative; border: none; perspective: 300px;}
+#app main.sub2 section.event .game .game_field .card .item{position: absolute; width: 100%; height: 100%; text-align: center; border-radius: 10px; left: 0; top: 0; border: 1px solid #333; backface-visibility: hidden; transition: .7s;}
+#app main.sub2 section.event .game .game_field .card .item.front{transform: rotateY(-180deg); overflow: hidden;}
+#app main.sub2 section.event .game .game_field .card .item.back{transform: rotateY(0deg); background: blueviolet; color: #fff;}
+
+#app main.sub2 section.event .game .game_field .card .item.front img{object-fit: cover; width: 100%; height: 100%;}
+#app main.sub2 section.event .game .game_field .card .item.front .area{position: absolute; width: 100%; top: 50%; transform: translateY(-50%); text-align: center; font-size: 23px; color: #fff; background: rgba(0, 0, 0, .5); z-index: 1;}
+
+#app.sub2 .modal{position: fixed; justify-content: center; align-items: center; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0, 0, 0, .5); z-index: 2;}
+#app.sub2 .modal>div{width: 400px; height: 500px; background: #fff; border: 2px solid #ddd; border-radius: 10px;}
+#app.sub2 .modal form{width: 80%; height: 100%; padding: 10px 20px; margin: 0 auto; flex-direction: column; justify-content: center; gap: 20px;}
+#app.sub2 .modal form p{font-size: 23px; font-weight: bold;}
+#app.sub2 .modal form input[type="text"]{border: none; padding: 10px 0; border-bottom: 1px solid #333; outline: none; font-size: 20px; margin: 10px 0;}
+#app.sub2 .modal form input[type="submit"]{background: blueviolet; border: none; color: #fff; font-size: 17px; line-height: 50px; cursor: pointer;}
+
+
+
+/* 서브3 페이지 */
+#app .insert_btn button{position: absolute; width: 150px; line-height: 50px; background: #0af; color: #fff; border: none; font-size: 18px; font-weight: bold; cursor: pointer; transition: .5s;}
+#app .insert_btn button:hover{background: rgb(31, 109, 148); transition: .5s;}
+#app main.sub3 section.review{width: 1300px; margin: 0px auto; padding-top: 120px;}
+
+#app main.sub3 section.review .annou_img{width: 100%; margin: 70px 0 20px;}
+#app main.sub3 section.review .annou_img>img{width: 100%;}
+#app main.sub3 section.review .annou{width: 900px; margin: 100px auto 0 ; padding: 10px 40px 20px;}
+#app main.sub3 section.review .annou legend{font-size: 25px; margin: 5px auto; font-weight: bold;}
+#app main.sub3 section.review p{font-size: 18px; font-weight: bold;}
+
+
+#app main.sub3 section.review .list{width: 100%; margin: 100px 0; font-weight: bold;}
+#app main.sub3 section.review .list table{width: 100%; line-height: 50px; text-align: center; border-collapse: collapse;}
+#app main.sub3 section.review .list table tr:first-child{background: blueviolet; color: #fff;}
+#app main.sub3 section.review .list table th{line-height: 65px; font-size: 19px;}
+#app main.sub3 section.review .list table td{width: 150px; max-width: 200px; max-height: 50px; font-size: 16px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;}
+#app main.sub3 section.review .list img{object-fit: cover; vertical-align: middle; margin: 5px 0; width: 150px; height: 50px;}
+
+#app main.sub3 section.review .list .list_high{background: #dbdbfb; color: #333;}
+
+/* 서브3 페이지 B모듈 */
+#app.sub3 .modal{position: fixed; left: 0; right: 0; top: 0; bottom: 0; justify-content: center; align-items: center; background: rgba(0, 0, 0, .8); z-index: 2;}
+#app.sub3 .modal>div{width: 800px; height: 500px; background: #fff; border-radius: 15px;}
+
+#app.sub3 .modal form{position: relative; width: 100%; height: 100%; padding: 50px 20px;}
+#app.sub3 .modal .close_btn{position: absolute; top: 20px; right: 30px; font-size: 35px; cursor: pointer;}
+#app.sub3 .modal .item-container{grid-template-columns: repeat(2, 1fr);}
+#app.sub3 .modal .item-container .item{margin: 0 auto;}
+
+
+#app.sub3 .modal form p{width: 300px; font-size: 23px; font-weight: bold;}
+#app.sub3 .modal form input[type="text"]{width: 300px; line-height: 40px; outline: none; border: none; border-bottom: 1px solid #333; margin: 10px 0 20px; font-size: 17px;}
+#app.sub3 .modal form input[type="file"]{margin: 15px 0;}
+#app.sub3 .modal form input[type="submit"]{position: absolute; width: 200px; border: 2px solid #333; font-size: 17px; background: none; line-height: 40px; height: 40px; bottom: 15px; right: 15px; transition: .5s; cursor: pointer;}
+#app.sub3 .modal form input[type="submit"]:hover{background: #333; color: #fff; transition: .5s;}
+#app.sub3 .modal form textarea{width: 300px; height: 70px; resize: none; outline: none; border: 1px solid #333; padding: 5px 10px; margin: 5px 0;}
+#app.sub3 .modal form .score_box{width: 200px; height: 40px;}
+#app.sub3 .modal form .score_box i{display: block; width: 40px; height: 40px; font-size: 40px; cursor: pointer;}
+
+
+/* 푸터 */
+#app footer{width: 100%;}
+#app footer p{font-size: 20px; font-weight: bold; color: rgb(180, 180, 180); text-align: right;}
+
+
+@keyframes content_move{
+    0%{transform: translate(0px, 0);}
+    33.3333%{transform: translate(-5px, 0);}
+    66.6666%{transform: translate(5px, 0);}
+    100%{transform: translate(0px, 0);}
+}
+
+@keyframes content_move2{
+    0%{transform: translate(30px, 0);}
+    50%{transform: translate(10px, 0);}
+    100%{transform: translate(30px, 0);}
+}
+
+@keyframes content_move3{
+    0%{transform: translate(-10px, 0);}
+    50%{transform: translate(0px, 0);}
+    100%{transform: translate(-10px, 0);}
+}
+
+
+
+
