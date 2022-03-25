@@ -188,11 +188,12 @@ input#sns_off:checked~ header .sns label.sns_off{display: none;}
 
 #app.sub3 .modal form p{width: 300px; font-size: 23px; font-weight: bold;}
 #app.sub3 .modal form input[type="text"]{width: 300px; line-height: 40px; outline: none; border: none; border-bottom: 1px solid #333; margin: 10px 0 20px; font-size: 17px;}
+#app.sub3 .modal form .add_photo_btn{width: 80px; height: 40px; margin: 0 auto; cursor: pointer;}
 #app.sub3 .modal form input[type="file"]{margin: 15px 0;}
 #app.sub3 .modal form input[type="submit"]{position: absolute; width: 200px; border: 2px solid #333; font-size: 17px; background: none; line-height: 40px; height: 40px; bottom: 15px; right: 15px; transition: .5s; cursor: pointer;}
 #app.sub3 .modal form input[type="submit"]:hover{background: #333; color: #fff; transition: .5s;}
 #app.sub3 .modal form textarea{width: 300px; height: 70px; resize: none; outline: none; border: 1px solid #333; padding: 5px 10px; margin: 5px 0;}
-#app.sub3 .modal form .score_box{width: 200px; height: 40px;}
+#app.sub3 .modal form .score_box{position: relative; width: 200px; height: 40px;}
 #app.sub3 .modal form .score_box i{display: block; width: 40px; height: 40px; font-size: 40px; cursor: pointer;}
 
 

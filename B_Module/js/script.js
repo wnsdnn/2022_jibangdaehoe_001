@@ -4,10 +4,8 @@ const startBtn = document.querySelector("#app section.event .game .setting .star
 const resetBtn = document.querySelector("#app section.event .game .setting .reset_btn");
 const hintBtn = document.querySelector("#app section.event .game .setting .hint_btn");
 const time = document.querySelector("#app section.event .game .display .time");
-
 const score = document.querySelector("#app section.event .game .display .card_score .score");
 const modal = document.querySelector("#app.sub2 .modal");
-
 const stamp = document.querySelector("#app section.event .game .stamp .item-container");
 
 const data = [
@@ -199,9 +197,7 @@ const selectCardChk = () => {
 
 const cardClickHandle = async function() {
     if(cardChoice && gamePaly) {
-        if(this.classList.contains("action")) {
-            return;
-        }
+        if(this.classList.contains("action")) return
         this.children[0].style.transform = "rotateY(0deg)";
         this.children[1].style.transform = "rotateY(180deg)";
 
@@ -218,9 +214,7 @@ const cardClickHandle = async function() {
                 [oldCard.children[0].children[1], nowCard.children[0].children[1]].forEach( ele => ele.classList.remove("none") );
                 [oldCard, nowCard].forEach( ele => ele.classList.add("action") );
 
-                cardArr.forEach( ele => {
-                    if(ele.area === oldCard.dataset.area) { ele.active = true }
-                } )
+                cardArr.forEach( ele => { if(ele.area === oldCard.dataset.area) ele.active = true } );
                 score.innerText = parseInt(score.textContent) + 1;
                 if(score.innerText >= cards.length/2) {
                     gameEnd();
@@ -266,7 +260,7 @@ const formSubmitHandle = async function(e) {
         alert('이름은 한글과 영어만 입력가능합니다.')
         return;
     }
-    if(phone.length !== 13) {
+    if(tel.length !== 13) {
         alert('핸드폰번호는 11자리 숫자만 입력가능합니다.');
         return;
     }
@@ -299,26 +293,84 @@ const keyDownHandle = function(e) {
 document.forms.gameForm&&document.forms.gameForm.addEventListener("submit", formSubmitHandle);
 document.forms.gameForm&&document.forms.gameForm.tel.addEventListener("keydown", keyDownHandle);
 
-
 // 서브3 후기작성
 const reviewAddBtn = document.querySelector("#app.sub3 header .review_add_btn");
 const modal2 = document.querySelector("#app.sub3 .modal");
 const modal2CloseBtn = document.querySelector("#app.sub3 .modal .close_btn");
 const scoreBox = document.querySelector("#app.sub3 .modal .score_box");
-
+const addPhotoBtn = document.querySelector("#app.sub3 .modal .add_photo_btn");
+const listArr = [];
 
 const modal2ToggleFunc = () => {
     modal2.classList.toggle("none");
     document.forms.reviewForm&&document.forms.reviewForm.reset();
+    [...document.querySelector("#app.sub3 .modal .score_box").children].forEach( ele => ele.className = "fa fa-star-o" );
+    addPhotoBtn.classList.remove("none");
+    document.querySelector("#app.sub3 .modal .photo input[name='photo']").classList.add("none");
 };
+
+const render = () => {
+    document.querySelector("#app.sub3 section.review table tbody").innerHTML = `
+        <tr>
+            <th>사진</th>
+            <th>별점</th>
+            <th>이름(작성자)</th>
+            <th>구매품</th>
+            <th>구매처</th>
+            <th>구매일</th>
+            <th>글 내용</th>
+        </tr>
+        ${listArr.map( ele => {
+            let scoreArr = [];
+            for(let i=0; i<5; i++) {
+                if(i < Math.floor(ele.score/2)) {
+                    scoreArr.push("<i class='fa fa-star'></i>");
+                } else {
+                    scoreArr.push("<i class='fa fa-star-o'></i>");
+                } 
+            }
+            if(ele.score%2 != 0) scoreArr.splice(Math.floor(ele.score/2), 1, "<i class='fa fa-star-half-o'></i>");
+            return `
+            <tr>
+                <td>
+                    <img src="${ele.photos[0] ? ele.photos[0] : './img/noimg.png'}">
+                </td>
+                <td>
+                    ${scoreArr.map( ele => ele ).join("")}
+                </td>
+                <td>${ele.name}</td>
+                <td>${ele.product}</td>
+                <td>${ele.shop}</td>
+                <td>${ele.date}</td>
+                <td>${ele.content}</td>
+            </tr>`
+        } ).join("")}
+    `;
+}
 
 const scoremouseMoveHandle = function(e) {
     const size = 40;
+    const x = e.layerX;
+    let score = 0;
 
-    console.log(e);
+    [...this.children].forEach( ele => ele.className = "fa fa-star-o" );
+    for(let i=0; i<Math.floor(x/size); i++) {
+        this.children[i].className = "fa fa-star";
+    }
+    score = Math.floor(x/size)*2;
+    if((x/40)%1 >= 0.5) {
+        this.children[Math.floor(x/size)].className = "fa fa-star";
+        score+=2;
+    } else {
+        if(Math.floor(x/size) >= 0) {
+            this.children[Math.floor(x/size)].className = "fa fa-star-half-o";
+            score+=1;
+        }
+    }
+    document.forms.reviewForm ? document.forms.reviewForm.score.value = score : 0;
 };
 
-const reviewFormSubmitHandle = function(e) {
+const reviewFormSubmitHandle = async function(e) {
     e.preventDefault();
     if(this.name.value.length < 2){
         alert("이름은 2글자 이상이 입력해야 합니다.");
@@ -332,17 +384,64 @@ const reviewFormSubmitHandle = function(e) {
         alert("이름은 한글과 영어만 입력이 가능합니다.");
         return;
     }
-    if(this.content >= 100) {
+    if(this.shop.value < 1) {
+        alert("구매처을 입력해주세요");
+        return;
+    }
+    if(this.content.value.length <= 100) {
         alert("내용을 100글자 이상 입력해 주세요");
         return;
     }
-
+    if(this.photo.files.length < 1) {
+        alert("사진을 1장이상 입력해주세요");
+        return;
+    }
+    if(this.product.value < 1) {
+        alert("구매품을 입력해주세요");
+        return;
+    }
+    if(this.date.value < 1) {
+        alert("구매일을 입력해주세요");
+        return;
+    }
+    if(this.score.value < 1) {
+        alert("별점을 입력해주세요");
+        return;
+    }
     alert("구매 후기가 등록되었습니다.");
+
+    const srcReturn = (img) => {
+        return new Promise( (res) => {
+            const reader = new FileReader();
+            reader.readAsDataURL(img);
+            reader.onload = () => { res(reader.result) };
+        } )
+    }
+    const photoArr = [];
+    for(let i = 0; i<this.photo.files.length; i++) {
+        photoArr.push(await srcReturn(this.photo.files[i]));
+    }
+    const obj = {
+        name: this.name.value,
+        product: this.product.value,
+        shop: this.shop.value,
+        date: this.date.value,
+        content: this.content.value,
+        photos: photoArr,
+        score: this.score.value
+    }
+    listArr.splice(0, 0, obj);
+    render();
     modal2ToggleFunc();
+};
+
+const addPhotoBtnClickHandle = function() {
+    this.classList.toggle("none");
+    document.querySelector("#app.sub3 .modal .photo input[name='photo']").classList.toggle("none");
 };
 
 reviewAddBtn&&reviewAddBtn.addEventListener("click", modal2ToggleFunc);
 modal2CloseBtn&&modal2CloseBtn.addEventListener("click", modal2ToggleFunc);
 scoreBox&&scoreBox.addEventListener("mousemove", scoremouseMoveHandle);
 document.forms.reviewForm&&document.forms.reviewForm.addEventListener("submit", reviewFormSubmitHandle);
-
+addPhotoBtn&&addPhotoBtn.addEventListener("click", addPhotoBtnClickHandle);
