@@ -1,6 +1,6 @@
 <?php
 
-function init($pages) 
+function init($pages)
 {
     [$url] = explode("?", $_SERVER["REQUEST_URI"]);
 
@@ -12,11 +12,11 @@ function init($pages)
         $reg = preg_replace("/\//", "\\/", $reg);
         $reg = "/^".$reg."$/";
 
-        if(preg_match($reg, $url, $r)) {
+        if(preg_match($reg, $url, $r))
+        {
             $conName = "\\src\\Controller\\{$name}";
             $con = new $conName();
             $con->{$method}($r);
-
             exit;
         }
     }
@@ -24,7 +24,7 @@ function init($pages)
 
 function call($method, $args)
 {
-    if($_SERVER["REQUEST_METHOD"] == $method)
+    if($_SERVER["REQUEST_METHOD"] == $method) 
     {
         init($args);
     }

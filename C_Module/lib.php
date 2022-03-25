@@ -6,9 +6,9 @@ spl_autoload_register(function($name) {
 });
 
 
-function script($s)
+function script($tg)
 {
-    echo "<script>$s</script>";
+    echo "<script>$tg</script>";
 };
 
 function alert($t="")
@@ -26,47 +26,33 @@ function move($tg, $t="")
 function back($t="")
 {
     alert($t);
-    script("history.back();");
+    script("history.back()");
     exit;
 };
-
 
 function view($page, $data=[])
 {
     extract($data);
 
-    require_once("src/views/header.php");
-    require_once("src/views/{$page}.php");
-    require_once("src/views/footer.php");
+    require_once("../src/views/template/header.php");
+    require_once("../src/views/{$page}.php");
+    require_once("../src/views/template/footer.php");
 };
 
-function getItems($tg, ...$names)
+function getItem($tg, ...$names)
 {
-    return array_map(function ($name) use ($tg) {
+    return array_map(function($name) use ($tg) {
         return $tg[$name];
     }, $names);
 };
 
-function get(...$names) {
-    return getItems($_GET, ...$names);
+function get(...$names)
+{
+    return getItem($_GET, ...$names);
 };
 
-function post(...$names) {
-    return getItems($_POST, ...$names);
+function post(...$names)
+{
+    return getItem($_POST, ...$names);
 };
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
