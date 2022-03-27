@@ -218,6 +218,15 @@ input#sns_off:checked~ header .sns label.sns_off{display: none;}
 form[name="specialty_update"] img{object-fit: cover; width: 300px; height: 300px;}
 
 
+.admin_event{width: 1200px; margin: 50px auto;}
+.admin_event .serach{margin: 20px 0;}
+.admin_event table{width: 100%; text-align: center; border-collapse: collapse;}
+.admin_event table tr{line-height: 40px;}
+.admin_event table th,
+.admin_event table td{border: 1px solid #333; border-left: none; border-right: none;}
+
+
+
 
 @keyframes content_move{
     0%{transform: translate(0px, 0);}

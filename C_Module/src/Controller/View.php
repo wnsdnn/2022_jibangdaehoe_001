@@ -51,13 +51,12 @@ class View
 
     function detailProccess()
     {
-        var_dump($_POST);
-        echo "<br>";
         extract($_POST);
         $default = fetch("SELECT * FROM specialty WHERE area = ?", [$area]);
 
         if($imgUrl != "") {
-
+            $data = explode(",", $imgUrl)[1];
+            file_put_contents("./(웹디자인)선수제공파일/특산품/{$photo_name}", base64_decode($data));
         }
         
         if($photo_name == "") {
@@ -66,10 +65,7 @@ class View
             execute("UPDATE `specialty` SET `img` = ?, `specialty` = ? WHERE area = ?", [$photo_name, $specialty, $area]);
         }
 
-
         $result = fetch("SELECT * FROM specialty WHERE area = ?", [$area]);
-        
-        var_dump($result);
         
         move("/admin_specialty", "정보가 수정되었습니다.");
     }
@@ -89,6 +85,7 @@ class View
         if(!isset($_SESSION["admin"])){
             back("관리자 권한이 필요합니다.");
         }
-        view("admin_specialty");
+        $result = fetchAll("SELECT * FROM `event`");
+        view("admin_event", ["list" => $result]);
     }
 }

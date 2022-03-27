@@ -42,7 +42,6 @@
                             <th>구매일</th>
                             <th>글 내용</th>
                         </tr>
-                       
                     </table>
                 </div>
             </section>
