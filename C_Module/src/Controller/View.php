@@ -25,10 +25,6 @@ class View
         view("sub3");
     }
 
-
-
-
-
     function adminPage()
     {
         view("admin");
@@ -50,11 +46,32 @@ class View
         extract($_GET);
         $result = fetch("SELECT * FROM specialty WHERE area = ?", [$area]);
         
-        echo "<pre>";
-        var_dump($result);
-        echo "</pre>";
+        view("detail", ["info" => $result]);
+    }
 
-        view("detail");
+    function detailProccess()
+    {
+        var_dump($_POST);
+        echo "<br>";
+        extract($_POST);
+        $default = fetch("SELECT * FROM specialty WHERE area = ?", [$area]);
+
+        if($imgUrl != "") {
+
+        }
+        
+        if($photo_name == "") {
+            execute("UPDATE `specialty` SET `img` = ?, `specialty` = ? WHERE area = ?", [$default->img, $specialty, $area]);
+        } else {
+            execute("UPDATE `specialty` SET `img` = ?, `specialty` = ? WHERE area = ?", [$photo_name, $specialty, $area]);
+        }
+
+
+        $result = fetch("SELECT * FROM specialty WHERE area = ?", [$area]);
+        
+        var_dump($result);
+        
+        move("/admin_specialty", "정보가 수정되었습니다.");
     }
 
     function adminSpecialtyPage()

@@ -18,4 +18,5 @@ $get(
 $post(
     "/api/event/applicants@Api@eventApi",
     "/admin@View@adminProccess",
+    "/detail@View@detailProccess",
 );

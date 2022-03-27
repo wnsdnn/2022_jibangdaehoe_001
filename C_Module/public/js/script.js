@@ -234,6 +234,7 @@ const cardClickHandle = async function() {
     }
 };
 
+
 startBtn&&startBtn.addEventListener("click", gameStart);
 
 const formSubmitHandle = async function(e) {
