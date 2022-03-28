@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="./css/style.css">
     <link rel="stylesheet" href="./fontawesome/css/font-awesome.css">
 </head>
-<body>
+<body id="review">
     <div id="app">
         <input type="radio" name="menu" id="menu_on">
         <input type="radio" name="menu" id="menu_off" checked>
@@ -19,7 +19,7 @@
                 <a href="./index.html">
                     <img src="./img/slogan.png" alt="sloganImg" title="sloganImg">
                 </a>
-                <button>후기작성</button>
+                <button class="open_modal">후기작성</button>
             </div>
             <div class="menus flex">
                 <div class="menu">
@@ -54,7 +54,7 @@
                 </fieldset> -->
             </div>
             <div class="review-container grid">
-                <div class="item">
+                <!-- <div class="item">
                     <p class="name">wnsdn</p>
                     <p class="date">2022-04-01</p>
                     <div class="photo">
@@ -70,160 +70,7 @@
                     <p class="product">구매품: 사과</p>
                     <p class="shop">구매처: 온라인 홈쇼핑</p>
                     <p class="content">내용: Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ipsum velit blanditiis iusto sed quis impedit eos ducimus qui mollitia! Voluptatum.</p>
-                </div>
-                <div class="item">
-                    <p class="name">wnsdn</p>
-                    <p class="date">2022-04-01</p>
-                    <div class="photo">
-                        <img src="./(웹디자인)선수제공파일/사진/photo (1).jpg" alt="reviewImg" title="reviewImg">
-                    </div>
-                    <div class="score_box">
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                    </div>
-                    <p class="product">구매품: 사과</p>
-                    <p class="shop">구매처: 온라인 홈쇼핑</p>
-                    <p class="content">내용: Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ipsum velit blanditiis iusto sed quis impedit eos ducimus qui mollitia! Voluptatum.</p>
-                </div>
-                <div class="item">
-                    <p class="name">wnsdn</p>
-                    <p class="date">2022-04-01</p>
-                    <div class="photo">
-                        <img src="./(웹디자인)선수제공파일/사진/photo (1).jpg" alt="reviewImg" title="reviewImg">
-                    </div>
-                    <div class="score_box">
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                    </div>
-                    <p class="product">구매품: 사과</p>
-                    <p class="shop">구매처: 온라인 홈쇼핑</p>
-                    <p class="content">내용: Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ipsum velit blanditiis iusto sed quis impedit eos ducimus qui mollitia! Voluptatum.</p>
-                </div>
-                <div class="item">
-                    <p class="name">wnsdn</p>
-                    <p class="date">2022-04-01</p>
-                    <div class="photo">
-                        <img src="./(웹디자인)선수제공파일/사진/photo (1).jpg" alt="reviewImg" title="reviewImg">
-                    </div>
-                    <div class="score_box">
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                    </div>
-                    <p class="product">구매품: 사과</p>
-                    <p class="shop">구매처: 온라인 홈쇼핑</p>
-                    <p class="content">내용: Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ipsum velit blanditiis iusto sed quis impedit eos ducimus qui mollitia! Voluptatum.</p>
-                </div>
-                <div class="item">
-                    <p class="name">wnsdn</p>
-                    <p class="date">2022-04-01</p>
-                    <div class="photo">
-                        <img src="./(웹디자인)선수제공파일/사진/photo (1).jpg" alt="reviewImg" title="reviewImg">
-                    </div>
-                    <div class="score_box">
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                    </div>
-                    <p class="product">구매품: 사과</p>
-                    <p class="shop">구매처: 온라인 홈쇼핑</p>
-                    <p class="content">내용: Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ipsum velit blanditiis iusto sed quis impedit eos ducimus qui mollitia! Voluptatum.</p>
-                </div>
-                <div class="item">
-                    <p class="name">wnsdn</p>
-                    <p class="date">2022-04-01</p>
-                    <div class="photo">
-                        <img src="./(웹디자인)선수제공파일/사진/photo (1).jpg" alt="reviewImg" title="reviewImg">
-                    </div>
-                    <div class="score_box">
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                    </div>
-                    <p class="product">구매품: 사과</p>
-                    <p class="shop">구매처: 온라인 홈쇼핑</p>
-                    <p class="content">내용: Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ipsum velit blanditiis iusto sed quis impedit eos ducimus qui mollitia! Voluptatum.</p>
-                </div>
-                <div class="item">
-                    <p class="name">wnsdn</p>
-                    <p class="date">2022-04-01</p>
-                    <div class="photo">
-                        <img src="./(웹디자인)선수제공파일/사진/photo (1).jpg" alt="reviewImg" title="reviewImg">
-                    </div>
-                    <div class="score_box">
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                    </div>
-                    <p class="product">구매품: 사과</p>
-                    <p class="shop">구매처: 온라인 홈쇼핑</p>
-                    <p class="content">내용: Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ipsum velit blanditiis iusto sed quis impedit eos ducimus qui mollitia! Voluptatum.</p>
-                </div>
-                <div class="item">
-                    <p class="name">wnsdn</p>
-                    <p class="date">2022-04-01</p>
-                    <div class="photo">
-                        <img src="./(웹디자인)선수제공파일/사진/photo (1).jpg" alt="reviewImg" title="reviewImg">
-                    </div>
-                    <div class="score_box">
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                    </div>
-                    <p class="product">구매품: 사과</p>
-                    <p class="shop">구매처: 온라인 홈쇼핑</p>
-                    <p class="content">내용: Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ipsum velit blanditiis iusto sed quis impedit eos ducimus qui mollitia! Voluptatum.</p>
-                </div>
-                <div class="item">
-                    <p class="name">wnsdn</p>
-                    <p class="date">2022-04-01</p>
-                    <div class="photo">
-                        <img src="./(웹디자인)선수제공파일/사진/photo (1).jpg" alt="reviewImg" title="reviewImg">
-                    </div>
-                    <div class="score_box">
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                    </div>
-                    <p class="product">구매품: 사과</p>
-                    <p class="shop">구매처: 온라인 홈쇼핑</p>
-                    <p class="content">내용: Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ipsum velit blanditiis iusto sed quis impedit eos ducimus qui mollitia! Voluptatum.</p>
-                </div>
-                <div class="item">
-                    <p class="name">wnsdn</p>
-                    <p class="date">2022-04-01</p>
-                    <div class="photo">
-                        <img src="./(웹디자인)선수제공파일/사진/photo (1).jpg" alt="reviewImg" title="reviewImg">
-                    </div>
-                    <div class="score_box">
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                    </div>
-                    <p class="product">구매품: 사과</p>
-                    <p class="shop">구매처: 온라인 홈쇼핑</p>
-                    <p class="content">내용: Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ipsum velit blanditiis iusto sed quis impedit eos ducimus qui mollitia! Voluptatum.</p>
-                </div>
+                </div> -->
             </div>
         </section>
         <footer>
@@ -241,9 +88,52 @@
                         <li class="high"><a href="./sub3.html">구매후기</a></li>
                     </ul>
                 </nav>
-                
             </div>
         </div>
+        <div class="review_modal flex none">
+            <form method="post" class="grid">
+                <div class="close">
+                    <i class="fa fa-close"></i>
+                </div>
+                <label>
+                    이름
+                    <input type="text" name="name">
+                </label>
+                <label>
+                    구매품
+                    <input type="text" name="product">
+                </label>
+                <label>
+                    구매처
+                    <input type="text" name="shop">
+                </label>
+                <label>
+                    구매일
+                    <input type="date" name="date">
+                </label>
+                <label>
+                    내용
+                    <textarea name="content"></textarea>
+                </label>
+                <label>
+                    별점
+                    <div class="score_container flex">
+                        <i class="fa fa-star-o"></i
+                        ><i class="fa fa-star-o"></i
+                        ><i class="fa fa-star-o"></i
+                        ><i class="fa fa-star-o"></i
+                        ><i class="fa fa-star-o"></i>
+                    </div>
+                    <input type="hidden" name="score">
+                </label>
+                <label class="photo_box">
+                    사진
+                    <button type="button" class="add_photo">사진추가</button>
+                </label>
+                <input type="submit" value="후기등록">
+            </form>
+        </div>
     </div>
+    <script src="./js/script.js"></script>
 </body>
 </html>
