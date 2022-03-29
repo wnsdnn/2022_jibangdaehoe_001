@@ -198,11 +198,6 @@ input[type="radio"]{display: none;}
 
 
 
-
-
-
-
-
 .card-container .card{perspective: 300px;}
 .card-container .card .item{backface-visibility: hidden; transition: .7s;}
 .card-container .card .front{display: flex; justify-content: center; align-items: center;}

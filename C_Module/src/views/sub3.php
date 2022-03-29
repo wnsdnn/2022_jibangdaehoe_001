@@ -84,7 +84,7 @@
             </div>
         </div>
         
-        <div class="review_modal flex none">
+        <div class="review_modal flex">
             <form method="post" class="grid">
                 <button type="button" class="close">닫기</button>
                 <label>
@@ -101,11 +101,11 @@
                 </label>
                 <label>
                     구매일
-                    <input type="date" name="date">
+                    <input type="date" name="purchase-date">
                 </label>
                 <label>
                     내용
-                    <textarea name="content"></textarea>
+                    <textarea name="contents"></textarea>
                 </label>
                 <label>
                     별점

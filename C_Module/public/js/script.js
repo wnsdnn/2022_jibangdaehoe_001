@@ -201,26 +201,32 @@ function eventPage() {
             return;
         }
 
-        // alert("이벤트에 참여해 주셔서 감사합니다.");
-        // addClass($eventModal, "none");
-        // const firstStamp = $(".stamp_container").children[0];
-        // addClass(firstStamp,"check");
-        // const date = new Date();
-        // firstStamp.children[0].innerText = `${date.getFullYear()}-${date.getMonth()+1 < 10 ? "0"+(date.getMonth()+1) : date.getMonth()+1}-${date.getDate()}`;
-        // reset();
+        const stamp = $(".stamp_container");
 
         const filedate = new FormData(this);
+        const eventApi = await fetch("/api/event/applicants", {
+            method: "POST",
+            body: filedate
+        }).then( res => res.json() );
 
-        // const eventApi = await fetch("/api/event/applicants", {
-        //     method: "POST",
-        //     body: filedate
-        // }).then( res => res.json() );
-
-        // alert(eventApi.message);
+        alert(eventApi.message);
 
         const stampApi = await fetch(`/api/event/${this.tel.value}/stamps`).then( res => res.json() );
 
-        console.log(stampApi);
+        if(stampApi.message) {
+            alert(stampApi.message);
+        } else {
+            if(stampApi.stamps.length >= 3) {
+                stamp.innerHTML = `<h3>축하합니다. 3일연속 출석하여 경품선정 대상자가 되었습니다.</h3>`;
+            } else {
+                stampApi.stamps.forEach( (ele,idx) => {
+                    addClass(stamp.children[idx], "check");
+                    stamp.children[idx].children[0].innerText = ele;
+                } )
+            }
+        }
+        addClass($eventModal, "none");
+        reset();
     }
 
     const _telChage = function() {
@@ -230,7 +236,6 @@ function eventPage() {
         .replace(/\-{1,2}$/g, "");
     }
 
-    gameEnd();
     $add($startBtn,gameStart);
     $add($hintBtn,() => hintHandle(3));
     $add($restartBtn,restartHandle);
@@ -261,31 +266,8 @@ function reviewPage() {
         } )
     }
 
-    const render = function() {
-        $(".review-container").innerHTML = ``;
-        dataArr.forEach( (ele) => {
-            const item = document.createElement("div");
-            item.classList.add("item");
-            const scoreArr = Array.from( Array(5), (_, idx) => {
-                if(idx < Math.floor(ele.score/2)) return "<i class='fa fa-star'></i>";
-                else if(ele.score%2 && idx === Math.floor(ele.score/2)) return "<i class='fa fa-star-half-o'></i>";
-                else return "<i class='fa fa-star-o'></i>";
-            } )
-            item.innerHTML = `
-                <p class="name">${ele.name}</p>
-                <p class="date">${ele.date}</p>
-                <div class="photo">
-                    <img src="${ele.photos[0]}" alt="reviewImg" title="reviewImg">
-                </div>
-                <div class="score_box">
-                    ${scoreArr.map( e => e ).join("")}
-                </div>
-                <p class="product">구매품: ${ele.product}</p>
-                <p class="shop">구매처: ${ele.shop}</p>
-                <p class="content">내용: ${ele.content}</p>
-            `;
-            $(".review-container").appendChild(item);
-        } )
+    const render = async function() {
+        
     }
 
     const _formSubmit = async function(e) {
@@ -314,27 +296,41 @@ function reviewPage() {
             return
         }
 
-
         const photoArr = [];
+
         for(const $p of photos) {
             if(!$p.files[0]) continue;
-            photoArr.push(await returnSrc($p.files[0]));
+            const src = await returnSrc($p.files[0]);
+
+            const imgTag = document.createElement("img");
+            imgTag.src = src;
+
+            const canvas = document.createElement("canvas");
+            const ctx = canvas.getContext('2d');
+
+            canvas.width = "500";
+            canvas.height = "500";
+            ctx.drawImage(imgTag, 0, 0, 500, 500);
+            ctx.font = "bold 3em";
+            ctx.textAlign = "center";
+            ctx.fillStyle = "rgba(0, 0, 0, .5)"
+            ctx.fillText("경상남도 특산품", canvas.width/2, canvas.height/2);
+
+            const url = canvas.toDataURL("image/jpeg");
+            photoArr.push({url, name: $p.files[0].name});
         }
 
-        const obj = {
-            name: this.name.value,
-            product: this.product.value,
-            shop: this.shop.value,
-            date: this.date.value,
-            content: this.content.value,
-            score: this.score.value,
-            photos: photoArr
-        };
+        const dataform = new FormData(this);
+        dataform.append("photoArr", JSON.stringify(photoArr));
 
-        dataArr.splice(0, 0, obj);
-        alert("구매 후기가 등록되었습니다.");
-        render();
+        const reviewApi = await fetch("/api/reviews", {
+            method: "POST",
+            body: dataform
+        }).then( res => res.json() );
+
+        alert(reviewApi.message);
         toggleModal();
+        render();
     }
 
     const _scoreInfo = function(e) {

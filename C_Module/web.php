@@ -18,5 +18,6 @@ $post(
     "/admin@View@adminProccess",
     "/detail@View@detailProccess",
     "/api/event/applicants@Api@eventApi",
+    "/api/reviews@Api@reviewApi",
     
 );
