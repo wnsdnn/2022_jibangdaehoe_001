@@ -114,13 +114,13 @@ function eventPage() {
             setTimer = setInterval(() => {
                 let newMin =  $(".display .time .min").textContent;
                 let newSec =  $(".display .time .sec").textContent;
-    
+
+                newSec--;
                 if(newMin <= 0 && newSec <= 0) {
                     clearInterval(setTimer);
                     if(end) gameEnd()
                     res();
                 } else {
-                    newSec--;
                     if(newSec < 0) {
                         newMin--;
                         newSec = 59;
@@ -146,13 +146,15 @@ function eventPage() {
     }
 
     const gameStart = async function() {
-        addClass($startBtn, "none");
-        removeClass($restartBtn, "none");
+        if( findClass($startBtn,"start") ) return;
         gameplay = true;
+        addClass($startBtn,"start");
         cardSetting();
         hintHandle(5);
         await timer(0, 5, false);
         
+        addClass($startBtn, "none");
+        removeClass($restartBtn, "none");
         $addAll($All(".card"), cardHandle);
         cardChoise = true;
         timer(1, 30, true);
@@ -161,6 +163,7 @@ function eventPage() {
     const reset = function() {
         clearInterval(setTimer);
         clearTimeout(setCardTimer);
+        removeClass($startBtn,"start");
         $form.reset();
         gameplay = false;
         cardChoise = false;
