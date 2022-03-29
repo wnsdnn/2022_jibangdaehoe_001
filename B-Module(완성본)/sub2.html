@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="./css/style.css">
     <link rel="stylesheet" href="./fontawesome/css/font-awesome.css">
 </head>
-<body>
+<body id="event">
     <div id="app">
         <input type="radio" name="menu" id="menu_on">
         <input type="radio" name="menu" id="menu_off" checked>
@@ -68,81 +68,84 @@
                 <div class="card-container grid">
                     <div class="card">
                         <div class="item front"></div>
-                        <div class="item back">back</div>
+                        <div class="item back"></div>
                     </div>
                     <div class="card">
                         <div class="item front"></div>
-                        <div class="item back">back</div>
+                        <div class="item back"></div>
                     </div>
                     <div class="card">
                         <div class="item front"></div>
-                        <div class="item back">back</div>
+                        <div class="item back"></div>
                     </div>
                     <div class="card">
                         <div class="item front"></div>
-                        <div class="item back">back</div>
+                        <div class="item back"></div>
                     </div>
                     <div class="card">
                         <div class="item front"></div>
-                        <div class="item back">back</div>
+                        <div class="item back"></div>
                     </div>
                     <div class="card">
                         <div class="item front"></div>
-                        <div class="item back">back</div>
-                    </div>
-                    <div class="card open">
-                        <div class="item front"></div>
+                        <div class="item back"></div>
                     </div>
                     <div class="card">
                         <div class="item front"></div>
-                        <div class="item back">back</div>
-                    </div>
-                    <div class="card open">
-                        <div class="item front"></div>
+                        <div class="item back"></div>
                     </div>
                     <div class="card">
                         <div class="item front"></div>
-                        <div class="item back">back</div>
+                        <div class="item back"></div>
                     </div>
                     <div class="card">
                         <div class="item front"></div>
-                        <div class="item back">back</div>
+                        <div class="item back"></div>
                     </div>
                     <div class="card">
                         <div class="item front"></div>
-                        <div class="item back">back</div>
+                        <div class="item back"></div>
                     </div>
                     <div class="card">
                         <div class="item front"></div>
-                        <div class="item back">back</div>
+                        <div class="item back"></div>
                     </div>
                     <div class="card">
                         <div class="item front"></div>
-                        <div class="item back">back</div>
+                        <div class="item back"></div>
                     </div>
                     <div class="card">
                         <div class="item front"></div>
-                        <div class="item back">back</div>
+                        <div class="item back"></div>
                     </div>
                     <div class="card">
                         <div class="item front"></div>
-                        <div class="item back">back</div>
+                        <div class="item back"></div>
+                    </div>
+                    <div class="card">
+                        <div class="item front"></div>
+                        <div class="item back"></div>
+                    </div>
+                    <div class="card">
+                        <div class="item front"></div>
+                        <div class="item back"></div>
                     </div>
                 </div>
             </div>
             <div class="display">
-                <div class="time"><span class="min">01</span>분 <span class="sec">12</span>초</div>
-                <p class="score_box">내가 찾은 카드 수: <span class="score">1</span>개</p>
+                <div class="time"><span class="min">00</span>분 <span class="sec">00</span>초</div>
+                <p class="score_box">내가 찾은 카드 수: <span class="score">0</span>개</p>
             </div>
             <div class="btns flex">
-                <button>다시하기</button>
-                <button>힌트보기</button>
+                <button class="start_btn">게임시작</button>
+                <button class="restart_btn none">다시하기</button>
+                <button class="hint_btn">힌트보기</button>
             </div>
             <div class="stamp">
                 <h3>stamp</h3>
                 <div class="stamp_container flex">
-                    <div class="item flex check">
-                        <h4>2022-03-28</h4>
+                    <div class="item flex">
+                        <h4>YYYY-MM-DD</h4>
                     </div>
                     <div class="item flex">
                         <h4>YYYY-MM-DD</h4>
@@ -168,9 +171,23 @@
                         <li><a href="./sub3.html">구매후기</a></li>
                     </ul>
                 </nav>
-                
             </div>
         </div>
+        <div class="event_modal flex none">
+            <form method="post" class="flex">
+                <input type="hidden" name="score">
+                <label>
+                    이름
+                    <input type="text" name="name" placeholder="이름을 입력해주세요">
+                </label>
+                <label>
+                    전화번호
+                    <input type="text" name="tel" maxlength="13" placeholder="전화번호를 입력해주세요">
+                </label>
+                <input type="submit" value="등록">
+            </form>
+        </div>
     </div>
+    <script src="./js/script.js"></script>
 </body>
 </html>

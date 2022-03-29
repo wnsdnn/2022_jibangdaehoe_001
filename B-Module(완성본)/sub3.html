@@ -19,7 +19,7 @@
                 <a href="./index.html">
                     <img src="./img/slogan.png" alt="sloganImg" title="sloganImg">
                 </a>
-                <button class="open_modal">후기작성</button>
+                <button class="open_btn">후기작성</button>
             </div>
             <div class="menus flex">
                 <div class="menu">
@@ -90,11 +90,10 @@
                 </nav>
             </div>
         </div>
+        
         <div class="review_modal flex none">
             <form method="post" class="grid">
-                <div class="close">
-                    <i class="fa fa-close"></i>
-                </div>
+                <button type="button" class="close">닫기</button>
                 <label>
                     이름
                     <input type="text" name="name">
@@ -117,14 +116,14 @@
                 </label>
                 <label>
                     별점
-                    <div class="score_container flex">
+                    <div class="score_container">
                         <i class="fa fa-star-o"></i
                         ><i class="fa fa-star-o"></i
                         ><i class="fa fa-star-o"></i
                         ><i class="fa fa-star-o"></i
                         ><i class="fa fa-star-o"></i>
                     </div>
-                    <input type="hidden" name="score">
+                    <input type="hidden" name="score" value="0">
                 </label>
                 <label class="photo_box">
                     사진
@@ -133,7 +132,9 @@
                 <input type="submit" value="후기등록">
             </form>
         </div>
+        
+
+        <script src="./js/script.js"></script>
     </div>
-    <script src="./js/script.js"></script>
 </body>
 </html>

@@ -26,9 +26,15 @@ input[type="radio"]{display: none;}
 #app #sns_on:checked~ header label.sns_on i{display: none;}
 #app #sns_off:checked~ header label.sns_off i{display: none;}
 
-#app #sns_on:checked~ header .menus .sns img:nth-child(1){left: -60px; transition: .7s;}
-#app #sns_on:checked~ header .menus .sns img:nth-child(2){left: 0px; transition: .7s;}
-#app #sns_on:checked~ header .menus .sns img:nth-child(3){left: 60px; transition: .7s;}
+#app #sns_on:checked~ header .menus .sns img:nth-child(1){left: -60px; transition: .7s; animation: snsMove 1s .7s linear forwards;}
+#app #sns_on:checked~ header .menus .sns img:nth-child(2){left: 0px; transition: .7s; animation: snsMove 1s .7s linear forwards;}
+#app #sns_on:checked~ header .menus .sns img:nth-child(3){left: 60px; transition: .7s; animation: snsMove 1s .7s linear forwards;}
+
+@keyframes snsMove{
+    0%{transform: scale(1);}
+    50%{transform: scale(1.2);}
+    100%{transform: scale(1);}
+}
 
 
 #app .menu_popup{position: fixed; width: 100%; height: 100%; left: 0; top: -110%; justify-content: center; align-items: center; background: rgba(0, 0, 0, .8); z-index: 11; transition: .5s;}
@@ -43,8 +49,8 @@ input[type="radio"]{display: none;}
 /* 메인 컨텐츠 */
 #app section>.side{font-size: 38px; cursor: pointer;}
 #app section>.side::before{content: ""; display: block; width: 3px; height: 30px; margin: 0 auto -7px; background: #333;}
-#app section>.prev{position: absolute; top: 50%; left: 0px; transform: rotate(-90deg);}
-#app section>.next{position: absolute; top: 50%; right: 0px; transform: rotate(90deg);}
+#app section>.prev{position: fixed; top: 50%; left: 0px; transform: rotate(-90deg);}
+#app section>.next{position: fixed; top: 50%; right: 0px; transform: rotate(90deg);}
 
 
 #app section.main-container{width: 100%; height: calc(100% - 30px);}
@@ -144,12 +150,9 @@ input[type="radio"]{display: none;}
 #app section.event .game .card-container .card{position: relative; width: 150px; height: 200px; margin: 0 auto; perspective: 300px;}
 #app section.event .game .card-container .card .item{position: absolute; width: 100%; height: 100%; text-align: center; line-height: 200px; border: 1px solid #000; backface-visibility: hidden; transition: 1s; border-radius: 10px; overflow: hidden; cursor: pointer;}
 
-#app section.event .game .card-container .card .front{background: blueviolet; transform: rotateY(180deg);}
-#app section.event .game .card-container .card .back{transform: rotateY(0deg); font-size: 20px;}
-#app section.event .game .card-container .card.open .front{transform: none;}
+#app section.event .game .card-container .card .front{transform: rotateY(180deg);}
+#app section.event .game .card-container .card .back{background: blueviolet; transform: rotateY(0deg); font-size: 20px;}
 
-/* #app section.event .game .card-container .card:hover .front{transform: rotateY(0deg);}
-#app section.event .game .card-container .card:hover .back{transform: rotateY(-180deg);} */
 
 #app section.event .display{width: 90%; margin: 20px auto; padding: 0 10px;}
 #app section.event .display>*{width: 100%; text-align: right;}
@@ -194,16 +197,40 @@ input[type="radio"]{display: none;}
 
 
 
-/* b모듈 구매후기 */
-.review_modal{position: fixed; width: 100%; height: 100%; left: 0; top: 0; justify-content: center; align-items: center; background: rgba(0, 0, 0, .8); z-index: 11;}
-.review_modal form{position: relative; width: 700px; background: #fff; padding: 20px 30px; grid-template-columns: repeat(2, 1fr); border-radius: 15px; gap: 20px;}
-.review_modal form label{width: 80%; margin: 0 auto;}
-.review_modal form label>*{width: 100%; display: block;}
-.review_modal form label input[type="text"]{line-height: 40px; outline: none; margin: 10px 0;}
-.review_modal form label textarea{resize: none; width: 100%; height: 100px;}
-.review_modal form label .score_container{position: relative; width: 200px; height: 40px; line-height: 40px; gap: 0;}
-.review_modal form label .score_container i{display: inline-block; width: 40px; line-height: 40px; height: 40px; text-align: center; font-size: 40px;}
-.review_modal form label button{width: 90px; line-height: 40px; height: 40px; cursor: pointer;}
-.review_modal form input[type="submit"]{position: absolute; width: 90px; line-height: 40px; height: 40px; bottom: 15px; right: 20px;}
 
-.review_modal form .close{position: absolute; font-size: 35px; right: 30px; top: 15px; cursor: pointer;}
+
+
+
+
+.card-container .card{perspective: 300px;}
+.card-container .card .item{backface-visibility: hidden; transition: .7s;}
+.card-container .card .front{display: flex; justify-content: center; align-items: center;}
+.card-container .card .front img{position: absolute; width: 100%; height: 100%; object-fit: cover;}
+.card-container .card .front h4{display: none; width: 100%; line-height: 45px; z-index: 1; background: rgba(0, 0, 0, .6); color: #fff; font-size: 18px;}
+.card-container .card.active .front{transform: rotateY(0deg) !important;}
+.card-container .card.active .back{transform: rotateY(-180deg) !important;}
+.card-container .card.success h4{display: block;}
+.card-container .card.success .front{transform: rotateY(0deg) !important;}
+.card-container .card.success .back{transform: rotateY(-180deg) !important;}
+
+.event_modal{position: fixed; width: 100%; height: 100%; left: 0; top: 0; justify-content: center; align-items: center; background: rgba(0, 0, 0, .8);}
+.event_modal form{width: 400px; height: 500px; justify-content: center; align-items: center; flex-direction: column; background: #fff; gap: 20px; border-radius: 20px;}
+.event_modal form label{width: 70%;}
+.event_modal form label>*{display: block; margin: 10px 0;}
+.event_modal form label input{width: 100%; line-height: 45px; padding: 0 10px; font-size: 17px;}
+.event_modal form input[type="submit"]{width: 70%; height: 45px; border: none; background: blueviolet; color: #fff; cursor: pointer;}
+
+
+
+
+.review_modal{position: fixed; width: 100%; height: 100%; left: 0; top: 0; justify-content: center; align-items: center; background: rgba(0, 0, 0, .8); z-index: 11;}
+.review_modal form{position: relative; width: 750px; padding: 30px 40px; grid-template-columns: repeat(2, 1fr); background: #fff; border-radius: 15px;}
+.review_modal form .close{position: absolute; right: 30px; top: 10px; font-size: 15px; cursor: pointer;}
+.review_modal form label{width: 80%; margin: 0 auto;}
+.review_modal form label>*{display: block;}
+.review_modal form label input{width: 100%; line-height: 40px; margin: 5px 0;}
+.review_modal form label textarea{resize: none; width: 100%; height: 100px;}
+.review_modal form label .score_container{position: relative; width: 200px; line-height: 40px;}
+.review_modal form label .score_container i{width: 40px; height: 40px; font-size: 40px; text-align: ctn;}
+.review_modal form input[type="submit"]{position: absolute; width: 100px; height: 40px; bottom: 15px; right: 15px; cursor: pointer;}
+
