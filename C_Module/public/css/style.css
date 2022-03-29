@@ -1,0 +1,263 @@
+*{margin: 0; padding: 0; box-sizing: border-box;}
+ul, li{list-style: none;}
+a{text-decoration: none; color: inherit;}
+.flex{display: flex;}
+.grid{display: grid;}
+.none{display: none;}
+input[type="radio"]{display: none;}
+
+#app{width: 100%; height: 100vh;}
+
+/* 헤더 + 메뉴 팝업창 */
+#app header{position: fixed; width: 100%; height: 100px; padding: 0 120px 0 50px; justify-content: space-between; align-items: center; z-index: 10;}
+#app header .logo{justify-content: center; align-items: center;}
+#app header .logo img{width: 250px;}
+#app header .menus{height: 100%; gap: 70px; font-size: 40px; align-items: center;}
+#app header .menus>*{display: flex; justify-content: center; align-items: center;}
+
+#app header .menus label{display: block; cursor: pointer; text-align: center;}
+#app header .menus label i{display: block; width: 50px; line-height: 50px;}
+#app header .menus label::after{content: ""; display: block; width: 0%; height: 5px; margin: 0 auto; background: #333; transition: .3s;}
+#app header .menus label:hover::after{width: 100%; transition: .3s;}
+
+#app header .menus .sns{position: relative; flex-direction: column;}
+#app header .menus .sns img{position: absolute; object-fit: cover; left: 500px; top: 110%; width: 50px; height: 50px; transition: .7s;}
+
+#app #sns_on:checked~ header label.sns_on i{display: none;}
+#app #sns_off:checked~ header label.sns_off i{display: none;}
+
+#app #sns_on:checked~ header .menus .sns img:nth-child(1){left: -60px; transition: .7s; animation: snsMove 1s .7s linear forwards;}
+#app #sns_on:checked~ header .menus .sns img:nth-child(2){left: 0px; transition: .7s; animation: snsMove 1s .7s linear forwards;}
+#app #sns_on:checked~ header .menus .sns img:nth-child(3){left: 60px; transition: .7s; animation: snsMove 1s .7s linear forwards;}
+
+@keyframes snsMove{
+    0%{transform: scale(1);}
+    50%{transform: scale(1.2);}
+    100%{transform: scale(1);}
+}
+
+
+#app .menu_popup{position: fixed; width: 100%; height: 100%; left: 0; top: -110%; justify-content: center; align-items: center; background: rgba(0, 0, 0, .8); z-index: 11; transition: .5s;}
+#app .menu_popup .popup-menu{position: relative; width: 350px; height: 450px; padding: 50px; align-items: center; background: #111; color: #fff; border-radius: 5px;}
+#app .menu_popup .close{position: absolute; right: 35px; top: 15px; font-size: 50px; cursor: pointer;}
+#app .menu_popup .popup-menu ul li{line-height: 40px; font-size: 27px; font-weight: bold; margin: 10px 0;}
+#app .menu_popup .popup-menu ul li.high{color: red;}
+
+#app #menu_on:checked~ .menu_popup{top: 0; transition: .5s;}
+
+
+/* 메인 컨텐츠 */
+#app section>.side{font-size: 38px; cursor: pointer;}
+#app section>.side::before{content: ""; display: block; width: 3px; height: 30px; margin: 0 auto -7px; background: #333;}
+#app section>.prev{position: fixed; top: 50%; left: 0px; transform: rotate(-90deg);}
+#app section>.next{position: fixed; top: 50%; right: 0px; transform: rotate(90deg);}
+
+
+#app section.main-container{width: 100%; height: calc(100% - 30px);}
+#app section.main-container .content{width: 1400px; height: 100%; margin: 0 auto; justify-content: space-between; align-items: center;}
+#app section.main-container .content .item{position: relative; width: 375px; height: 630px; border: 2px solid #eee; border-radius: 15px; transform: rotate(0.0001deg); overflow: hidden; cursor: pointer;}
+#app section.main-container .content .item .sub_img{position: absolute; object-fit: cover; width: 35px; height: 35px; top: 10px; right: 20px; opacity: .8; z-index: 1;}
+#app section.main-container .content .item .photo{width: 100%; height: 70%; overflow: hidden;}
+#app section.main-container .content .item .text{padding: 10px 15px; color: #bbb;}
+#app section.main-container .content .item .text h4{font-size: 17px; margin: 5px 0;}
+#app section.main-container .content .item .text p{font-weight: bold; color: #ddd; font-size: 17px;}
+
+#app section.main-container .content .item .photo img{object-fit: cover; width: 100%; height: 100%; transition: .3s;}
+#app section.main-container .content .item:hover .photo>img{transform: scale(1.05); transition: .3s;}
+
+#app section.main-container .content a:nth-child(1) .item{animation: content_move 4s infinite linear; top: -10px;}
+#app section.main-container .content a:nth-child(2) .item{animation: content_move2 4s infinite linear; top: 30px;}
+#app section.main-container .content a:nth-child(3) .item{animation: content_move3 4s infinite linear; top: -30px;}
+
+
+@keyframes content_move{
+    0%{left: 0px;}
+    33.3333%{left: 20px;}
+    66.6666%{left: -20px;}
+    100%{left: 0;}
+}
+
+@keyframes content_move2{
+    0%{left: 20px;}
+    50%{left: -10px;}
+    100%{left: 20px;}
+}
+
+@keyframes content_move3{
+    0%{left: -15px;}
+    50%{left: 30px;}
+    100%{left: -15px;}
+}
+
+
+
+/* 푸터 */
+#app footer{width: 100%; height: 30px; padding: 0 20px;}
+#app footer p{width: 100%; text-align: right; color: #ddd; font-size: 20px; font-weight: bold;}
+
+
+
+/* 서브 페이지 */
+#app section.sub,
+#app section.admin{padding-top: 120px;}
+#app section>h3.title{border-left: 7px solid slateblue; margin: 50px 0; padding: 0 20px; font-size: 30px;}
+#app section.sub .high{color: blueviolet;}
+
+/* 서브1 페이지 */
+#app section.map{width: 1200px; margin: 0 auto;}
+#app section.map .svg{position: relative; width: 1000px; margin: 0 auto; padding: 0 0 200px; overflow: hidden;}
+
+#app section.map .svg .area li{position: absolute; left: 0; top: 0; font-size: 27px; font-weight: bold; cursor: pointer; transition: .3s;}
+#app section.map .svg .area li:hover{color: blueviolet; transition: .3s;}
+
+#app section.map .svg .area li:nth-child(1){left: 60%; top: 43%;}
+#app section.map .svg .area li:nth-child(2){left: 30%; top: 45%;}
+#app section.map .svg .area li:nth-child(3){left: 43%; top: 68%;}
+#app section.map .svg .area li:nth-child(4){left: 25%; top: 53.5%;}
+#app section.map .svg .area li:nth-child(5){left: 74%; top: 40%;}
+#app section.map .svg .area li:nth-child(6){left: 70%; top: 26%;}
+#app section.map .svg .area li:nth-child(7){left: 62%; top: 65.5%;}
+#app section.map .svg .area li:nth-child(8){left: 85%; top: 32%;}
+#app section.map .svg .area li:nth-child(9){left: 39.5%; top: 32%;}
+#app section.map .svg .area li:nth-child(10){left: 48%; top: 39%;}
+#app section.map .svg .area li:nth-child(11){left: 52%; top: 25%;}
+#app section.map .svg .area li:nth-child(12){left: 41%; top: 57%;}
+#app section.map .svg .area li:nth-child(13){left: 20%; top: 73.5%;}
+#app section.map .svg .area li:nth-child(14){left: 10%; top: 51%;}
+#app section.map .svg .area li:nth-child(15){left: 16%; top: 35%;}
+#app section.map .svg .area li:nth-child(16){left: 6%; top: 22%;}
+#app section.map .svg .area li:nth-child(17){left: 16%; top: 10%;}
+#app section.map .svg .area li:nth-child(18){left: 31%; top: 22%;}
+
+#app section.map .svg .area li:hover .content{top: 110%; transition: .5s;}
+#app section.map .svg .area .content{position: absolute; width: 270px; height: 200px; top: 2000px; background: #fff; border-radius: 15px; overflow: hidden; border: 2px solid #333; z-index: 5; transition: .5s;}
+#app section.map .svg .area .content h4{padding: 0 10px; font-size: 23px; color: #333;}
+#app section.map .svg .area .content img{object-fit: cover; width: 100%; height: 70%;}
+
+/* 서브2 페이지 */
+#app section.event{width: 1000px; margin: 0 auto;}
+#app section.event .anno{position: relative;}
+#app section.event .anno fieldset{border: 2px dashed #bbb; padding: 10px 35px;}
+#app section.event .anno fieldset legend{margin: 0 auto; padding: 0 20px; font-size: 35px; font-weight: bold;}
+#app section.event .anno fieldset p{font-weight: bold; font-size: 18px; margin: 10px 0;}
+#app section.event .anno fieldset ul{font-size: 17px; margin: 20px 0; font-weight: 600;}
+#app section.event .anno fieldset ul li{line-height: 30px;}
+
+#app section.event .anno>img{position: absolute; width: 400px; bottom: -30%; right: -10%; object-fit: cover;}
+
+#app section.event .game{margin: 250px 0 20px;}
+#app section.event .game>h3{margin: 60px 0 20px; font-size: 30px;}
+#app section.event .game .card-container{width: 90%; margin: 0 auto; padding: 20px; border: 1px solid #333; grid-template-columns: repeat(4, 1fr); gap: 20px;}
+#app section.event .game .card-container .card{position: relative; width: 150px; height: 200px; margin: 0 auto; perspective: 300px;}
+#app section.event .game .card-container .card .item{position: absolute; width: 100%; height: 100%; text-align: center; line-height: 200px; border: 1px solid #000; backface-visibility: hidden; transition: 1s; border-radius: 10px; overflow: hidden; cursor: pointer;}
+
+#app section.event .game .card-container .card .front{transform: rotateY(180deg);}
+#app section.event .game .card-container .card .back{background: blueviolet; transform: rotateY(0deg); font-size: 20px;}
+
+
+#app section.event .display{width: 90%; margin: 20px auto; padding: 0 10px;}
+#app section.event .display>*{width: 100%; text-align: right;}
+#app section.event .display .time{font-size: 20px; font-weight: bold; margin: 5px 0;}
+#app section.event .display .score_box{font-size: 16px;}
+
+#app section.event .btns{width: 100%; height: 100px; justify-content: center; align-items: center; gap: 35px;}
+#app section.event .btns button{width: 110px; line-height: 45px; border: 1px solid blueviolet; background: none; color: blueviolet; font-size: 16px; font-weight: bold; cursor: pointer; transition: .3s;}
+#app section.event .btns button:hover{background: blueviolet; color: #fff; transition: .3s;}
+
+#app section.event .stamp{width: 100%; text-align: center; margin: 20px 0;}
+#app section.event .stamp h3{margin: 20px 0 40px; font-size: 43px;}
+#app section.event .stamp .stamp_container{width: 100%; height: 250px; justify-content: center; align-items: center; background: #eee; gap: 30px;}
+#app section.event .stamp .stamp_container .item{width: 200px; height: 200px; justify-content: center; align-items: center; border: 4px dashed #333; border-radius: 100%; font-size: 20px;}
+#app section.event .stamp .stamp_container .item h4{width: 100%; line-height: 45px; border: 4px dashed #333; transform: rotate(10deg); border-left: none; border-right: none;}
+#app section.event .stamp .stamp_container .item.check{border-color: red;}
+#app section.event .stamp .stamp_container .item.check h4{border-color: red; color: red;}
+
+/* 서브3 페이지 */
+#app .logo button{width: 120px; line-height: 40px; background: blueviolet; border: none; font-size: 16px; font-weight: bold; color: #fff; cursor: pointer; transition: .5s;}
+#app .logo button:hover{background: rgb(79, 0, 153); transition: .3s;}
+
+#app section.review{width: 100%;}
+#app section.review>h3.title{width: 1400px; margin: 0 auto;}
+#app section.review .anno{position: relative; width: 1100px; margin: 70px auto 100px;}
+#app section.review .anno fieldset{padding: 20px 40px;}
+#app section.review .anno fieldset legend{margin: 0 auto; padding: 0 20px; font-size: 27px; font-weight: bold;}
+#app section.review .anno fieldset p{font-size: 17px; font-weight: bold; margin: 20px 0;}
+
+#app section.review .review-container{width: 1400px; margin: 0 auto; grid-template-columns: repeat(4, 1fr); gap: 30px;}
+#app section.review .review-container .item{position: relative; width: 300px; height: 400px; margin: 0 auto; padding: 20px; border: 1px solid #eee; cursor: pointer;}
+#app section.review .review-container .item .name{display: inline-block; padding: 5px 10px; margin-bottom: 10px; background: blueviolet; color: #fff; font-size: 17px; font-weight: bold; border-radius: 5px;}
+#app section.review .review-container .item .date{position: absolute; top: 15px; right: 15px; font-size: 15px; font-weight: bold; color: #ddd;}
+#app section.review .review-container .item .photo{width: 100%; height: 50%; border-radius: 5px; overflow: hidden;}
+#app section.review .review-container .item .score_box{margin: 10px 0; padding: 0 5px;}
+#app section.review .review-container .item .score_box i{font-size: 25px; color: blueviolet;}
+#app section.review .review-container .item .product,
+#app section.review .review-container .item .shop{line-height: 25px; font-weight: bold;}
+#app section.review .review-container .item .content{width: 100%; height: auto; line-height: 50px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;}
+
+#app section.review .review-container .item img{object-fit: cover; width: 100%; height: 100%;}
+
+
+
+
+
+
+
+
+.card-container .card{perspective: 300px;}
+.card-container .card .item{backface-visibility: hidden; transition: .7s;}
+.card-container .card .front{display: flex; justify-content: center; align-items: center;}
+.card-container .card .front img{position: absolute; width: 100%; height: 100%; object-fit: cover;}
+.card-container .card .front h4{display: none; width: 100%; line-height: 45px; z-index: 1; background: rgba(0, 0, 0, .6); color: #fff; font-size: 18px;}
+.card-container .card.active .front{transform: rotateY(0deg) !important;}
+.card-container .card.active .back{transform: rotateY(-180deg) !important;}
+.card-container .card.success h4{display: block;}
+.card-container .card.success .front{transform: rotateY(0deg) !important;}
+.card-container .card.success .back{transform: rotateY(-180deg) !important;}
+
+.event_modal{position: fixed; width: 100%; height: 100%; left: 0; top: 0; justify-content: center; align-items: center; background: rgba(0, 0, 0, .8); z-index: 11;}
+.event_modal form{width: 400px; height: 500px; justify-content: center; align-items: center; flex-direction: column; background: #fff; gap: 20px; border-radius: 20px;}
+.event_modal form label{width: 70%;}
+.event_modal form label>*{display: block; margin: 10px 0;}
+.event_modal form label input{width: 100%; line-height: 45px; padding: 0 10px; font-size: 17px;}
+.event_modal form input[type="submit"]{width: 70%; height: 45px; border: none; background: blueviolet; color: #fff; cursor: pointer;}
+
+
+
+
+.review_modal{position: fixed; width: 100%; height: 100%; left: 0; top: 0; justify-content: center; align-items: center; background: rgba(0, 0, 0, .8); z-index: 11;}
+.review_modal form{position: relative; width: 750px; padding: 30px 40px; grid-template-columns: repeat(2, 1fr); background: #fff; border-radius: 15px;}
+.review_modal form .close{position: absolute; right: 30px; top: 10px; font-size: 15px; cursor: pointer;}
+.review_modal form label{width: 80%; margin: 0 auto;}
+.review_modal form label>*{display: block;}
+.review_modal form label input{width: 100%; line-height: 40px; margin: 5px 0;}
+.review_modal form label textarea{resize: none; width: 100%; height: 100px;}
+.review_modal form label .score_container{position: relative; width: 200px; line-height: 40px;}
+.review_modal form label .score_container i{width: 40px; height: 40px; font-size: 40px; text-align: ctn;}
+.review_modal form input[type="submit"]{position: absolute; width: 100px; height: 40px; bottom: 15px; right: 15px; cursor: pointer;}
+
+
+
+.admin_login{width: 100%; height: 100vh; justify-content: center; align-items: center;}
+.admin_login form{flex-direction: column; width: 250px; gap: 20px;}
+.admin_login form label{width: 100%;}
+.admin_login form label>*{display: block;}
+.admin_login form label input{width: 100%; margin: 5px 0; line-height: 30px;}
+.admin_login form input[type="submit"]{height: 40px; cursor: pointer;}
+
+section.admin{width: 1200px; margin: 0 auto;}
+
+section.admin .specialty_container{width: 100%; grid-template-columns: repeat(4, 1fr); gap: 25px;}
+section.admin .specialty_container .item{position: relative; width: 270px; height: 330px; border: 1px solid #333; border-radius: 15px; overflow: hidden;}
+section.admin .specialty_container .item .photo{width: 100%; height: 70%;}
+section.admin .specialty_container .item .text{padding: 10px 15px;}
+section.admin .specialty_container .item .text h4{font-size: 18px;}
+section.admin .specialty_container .item button{position: absolute; right: 15px; bottom: 15px; cursor: pointer;}
+
+section.admin .specialty_container .item img{object-fit: cover; width: 100%; height: 100%;}
+
+
+section.admin .specialty{width: 100%; justify-content: center; margin: 20px 0;}
+section.admin .specialty .item{width: 400px; height: 500px;}
+section.admin .specialty .item h3{font-size: 25px; margin: 10px 0;}
+
+section.admin .specialty img{object-fit: cover; width: 100%; height: 70%;}
