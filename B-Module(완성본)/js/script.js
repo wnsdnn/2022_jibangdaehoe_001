@@ -36,276 +36,314 @@ const data = [
 }
 
 function eventPage() {
-    const $startBtn = $(".start_btn");
-    const $restartBtn = $(".restart_btn");
-    const $hintBtn = $(".hint_btn");
-    const $score = $(".display .score");
+    const $startBtn = $(".event .btns .start_btn");
+    const $reStartBtn = $(".event .btns .restart_btn");
+    const $hintBtn = $(".event .btns .hint_btn");
+    const $cards = $All(".game .card");
+    const $time = $(".display .time");
     const $eventModal = $(".event_modal");
     const $form = $("form", $eventModal);
-    let gameplay = false;
-    let cardChoise = false;
+    const $score = $(".display .score");
 
+    let focusCard = null;
     let setTimer = null;
     let setCardTimer = null;
-    let selectCard = null;
 
-    function cardHandle() {
-        if(findClass(this, "active") || !cardChoise ) return;
-        addClass(this, "active");
-        const before = selectCard?.dataset?.area;
-        const after = this?.dataset?.area;
-        if(selectCard === null) {
-            selectCard = this;
-            setCardTimer = setTimeout(() => {
-                if(selectCard !== null && findClass(selectCard, "success")) return;
-                removeClass(selectCard);
-            }, 3000)
-        } else {
-            if(before === after) {
-                addClass(selectCard, "success")
-                addClass(this, "success")
-                selectCard = null;
-                clearTimeout(setCardTimer);
-                $score.innerText = parseInt($score.textContent) +1;
-                $form.score.value = $score.textContent;
-                if($score.textContent >= 8) gameEnd();
-            } else {
-                cardChoise = false;
-                setCardTimer = setTimeout(() => {
-                    removeClass(selectCard, "active");
-                    removeClass(this, "active");
-                    selectCard = null;
-                    cardChoise = true;
-                }, 1000)
-            }
-        }
-    }
+    let gamePlay = false;
+    let cardChoise = false;
+
+    const cardSetting = function() {
+        const card = oo(data).slice(0, 8);
+        const cardList = oo([...card, ...card]);
+        $cards.forEach( (ele, idx) => {
+            ele.dataset.area = cardList[idx].area;
+            ele.children[0].innerHTML = `
+                <img src="./(웹디자인)선수제공파일/특산품/${cardList[idx].imgName}">
+                <h4>${cardList[idx].area}</h4>
+            `;
+            $add(ele, _cardClick);
+        } )
+    };
+
+    const toggleModal = function() {
+        $eventModal.classList.toggle("none");
+        $form.reset();
+    };
 
     const gameEnd = function() {
         clearInterval(setTimer);
         clearTimeout(setCardTimer);
-        $All(".card").forEach( ele => {
+        $cards.forEach( ele => {
+            addClass(ele, "end");
             addClass(ele, "active");
-            if(findClass(ele, "success")) {
-                ele.children[0].style.border = "4px solid green";
-            } else {
-                ele.children[0].style.border = "4px solid red";
-            }
-        } )
-        removeClass($eventModal, "none");
-    }
-    
-    const cardSetting = function() {
-        const cards = oo(data).slice(0, 8);
-        const cardArr = oo([...cards, ...cards]);
-        $All(".card").forEach( (ele, idx) => {
-            ele.dataset.area = cardArr[idx].area;
-            ele.children[0].innerHTML = `
-                <img src="./(웹디자인)선수제공파일/특산품/${cardArr[idx].imgName}">
-                <h4>${cardArr[idx].area}</h4>
-            `;
-        } )
+        } );
+        toggleModal();
     };
 
-    const timer = function(min, sec, end) {
+    const timer = (min, sec, end) => {
         return new Promise( res => {
-            $(".display .time .min").innerText = min;
-            $(".display .time .sec").innerText = sec;
-            setTimer = setInterval(() => {
-                let newMin =  $(".display .time .min").textContent;
-                let newSec =  $(".display .time .sec").textContent;
-
+            $('.min', $time).innerText = min;
+            $('.sec', $time).innerText = sec;
+    
+            setTimer = setInterval( () => {
+                let newMin = $('.min', $time).textContent;
+                let newSec = $('.sec', $time).textContent;
+    
                 newSec--;
-                if(newMin <= 0 && newSec <= 0) {
+    
+                if(newSec <= 0 && newMin <= 0) {
                     clearInterval(setTimer);
-                    if(end) gameEnd()
+                    if(end) gameEnd();
                     res();
                 } else {
-                    if(newSec < 0) {
+                    if( newSec < 0 ) {
                         newMin--;
                         newSec = 59;
                     }
-                    $(".display .time .min").innerText = newMin;
-                    $(".display .time .sec").innerText = newSec;
                 }
-            }, 1000);
+                $(".min", $time).innerText = newMin;
+                $(".sec", $time).innerText = newSec;
+            }, 1000 )
         } )
-    };
-
-    const hintHandle = function(s) {
-        if( !gameplay ) return
-        cardChoise = false;
-        gameplay = false;
-        selectCard = null;
-        $All(".card").forEach( ele => addClass(ele, "active") );
-        setTimeout(() => {
-            $All(".card").forEach( ele => removeClass(ele, "active") );
-            cardChoise = true;
-            gameplay = true;
-        }, s*1000)
     }
 
-    const gameStart = async function() {
-        if( findClass($startBtn,"start") ) return;
-        gameplay = true;
-        addClass($startBtn,"start");
+    const _cardClick = function() {
+        if( findClass(this, "active") || !cardChoise ) return;
+        addClass(this, "active");
+
+        const before = focusCard?.dataset?.area;
+        const after = this?.dataset?.area;
+        if(focusCard === null) {
+            focusCard = this;
+            setCardTimer = setTimeout( () => {
+                if( findClass(focusCard, "success") ) return;
+                removeClass(focusCard, "active");
+                focusCard = null;
+            }, 3000 )
+        } else {
+            if(before === after) {
+                addClass(focusCard, "success");
+                addClass(this, "success");
+                clearInterval(setCardTimer);
+                focusCard = null;
+                $form.score.value = parseInt($score.textContent) + 1;
+                $score.innerText = parseInt($score.textContent) + 1;
+                if($score.innerText >= 8) gameEnd();
+            } else {
+                cardChoise = false;
+                clearInterval(setCardTimer);
+                setCardTimer = setTimeout( () => {
+                    removeClass(focusCard, "active")
+                    removeClass(this, "active")
+                    focusCard = null;
+                    cardChoise = true;
+                }, 1000 )
+            }
+        }
+    };
+    
+    const _gameHint = (sec) => {
+        if( !gamePlay ) return;
+        gamePlay = false;
+        cardChoise = true;
+        clearTimeout(setCardTimer);
+        $cards.forEach( ele => addClass(ele, "active") );
+        setCardTimer = setTimeout(() => {
+            $cards.forEach( ele => removeClass(ele, "active") );
+            focusCard = null;
+            gamePlay = true;
+            cardChoise = true;
+        }, sec*1000);
+    }
+
+    const _startGame = async function() {
+        if( findClass($startBtn, "start") ) return;
+        addClass($startBtn, "start");
         cardSetting();
-        hintHandle(5);
+        gamePlay = true;
+        _gameHint(5);
         await timer(0, 5, false);
+
         
         addClass($startBtn, "none");
-        removeClass($restartBtn, "none");
-        $addAll($All(".card"), cardHandle);
-        cardChoise = true;
+        removeClass($reStartBtn, "none");
         timer(1, 30, true);
-    }
+
+    };
 
     const reset = function() {
+        cardChoise = false;
+        gamePlay = false;
+        focusCard = null;
+
         clearInterval(setTimer);
         clearTimeout(setCardTimer);
-        removeClass($startBtn,"start");
-        $form.reset();
-        gameplay = false;
-        cardChoise = false;
-        selectCard = null;
+        $cards.forEach( ele => ele.className = "card" );
+        $(".min", $time).innerText = 0;
+        $(".sec", $time).innerText = 0;
         $score.innerText = 0;
-        $All(".card").forEach( ele => {
-            ele.className = "card";
-            ele.children[0].removeAttribute("style");
-        } );
-        $(".display .time .min").innerText = 0;
-        $(".display .time .sec").innerText = 0;
-        $form.reset();
-        addClass($restartBtn, "none");
-        removeClass($startBtn, "none");
-    }
-
-    const restartHandle = function() {
-        if( !gameplay ) return;
+        $startBtn.className = "start_btn";
+        addClass($reStartBtn, "none");
+    };
+    
+    const _reStartGame =  async function() {
+        $cards.forEach( ele => ele.className = "card" );
+        await new Promise( res => {
+            setTimeout( () => { res() }, 1000 )
+        } )
         reset();
-        gameStart();
-    }
+        _startGame();
+    };
 
     const _formSubmit = function(e) {
         e.preventDefault();
-
-        try{
+        try {
             if(this.name.value.length < 2 || this.name.value.length > 50)
                 throw "이름은 2글자 이상 50글자 이내여야 합니다.";
-            if(!/[a-zA-Zㄱ-ㅎ가-힣]/g.test(this.name.value))
-                throw "이름은 한글 혹은 영어만 입력 가능합니다.";
+            if(!/[ㄱ-ㅎ가-힣a-zA-Z]/g.test(this.name.value))
+                throw "이름은 한글 또는 영어만 입력하실수 있습니다.";
             if(this.tel.value.length < 13)
-                throw "전화번호를 입력해 주세요";
+                throw "전화번호를 끝까지 입력해주세요";
         } catch(e) {
             alert(e);
             return;
         }
-
+        
         alert("이벤트에 참여해 주셔서 감사합니다.");
-        addClass($eventModal, "none");
-        const firstStamp = $(".stamp_container").children[0];
-        addClass(firstStamp,"check");
+        toggleModal();
         const date = new Date();
-        firstStamp.children[0].innerText = `${date.getFullYear()}-${date.getMonth()+1 < 10 ? "0"+(date.getMonth()+1) : date.getMonth()+1}-${date.getDate()}`;
+        const stamp = $(".stamp .stamp_container").children[0];
+        addClass(stamp, "check");
+        stamp.children[0].innerText = `${date.getFullYear()}-${date.getMonth()+1 < 10 ? "0"+(date.getMonth()+1) : date.getMonth()+1}-${date.getDate()}`;
         reset();
-    }
+    };
 
-    const _telChage = function() {
+    const _telChange = function() {
         this.value = this.value
         .replace(/[^0-9]/g, "")
         .replace(/^(\d{0,3})(\d{0,4})(\d{0,4})$/g, "$1-$2-$3")
         .replace(/\-{1,2}$/g, "");
     }
 
-    $add($startBtn,gameStart);
-    $add($hintBtn,() => hintHandle(3));
-    $add($restartBtn,restartHandle);
-    $add($form,_formSubmit,"submit");
-    $add($("input[name='tel']", $eventModal),_telChage,"input");
+    $add($startBtn, _startGame);
+    $add($reStartBtn, _reStartGame);
+    $add($hintBtn, () => {_gameHint(3)});
+    $add($form, _formSubmit, "submit");
+    $add($form.tel, _telChange, "input");
 }
 
 function reviewPage() {
     const $reviewModal = $(".review_modal");
-    const $opneBtn = $("header .open_btn");
+    const $openBtn = $("header .open_btn");
     const $closeBtn = $(".close", $reviewModal);
-    const $form = $("form", $reviewModal);
-    const $socreBox = $(".score_container", $reviewModal);
     const $addPhotoBtn = $(".add_photo", $reviewModal);
-
+    const $scoreBox = $(".score_container", $reviewModal);
+    const $form = $("form", $reviewModal);
     const dataArr = [];
 
-
-    const toggleModal = function() {
+    const _toggleModal = function() {
         $reviewModal.classList.toggle("none");
+        [...$scoreBox.children].forEach( ele => ele.className = "fa fa-star-o" );
+        $form.reset();
     };
 
-    const returnSrc = (img) => {
-        return new Promise( res => {
-            const reader = new FileReader();
-            reader.readAsDataURL(img);
-            reader.onload = () => { res(reader.result) };
+    const _insertPhotoBtn = function() {
+        const input = document.createElement("input");
+        input.type = "file";
+        input.name = "photo";
+        $(".photo_box", $reviewModal).appendChild(input);
+    };
+
+    const _scoreChange = function({layerX}) {
+        const $x = layerX/40 < 0 ? 0 : layerX/40;
+        let score = 0;
+
+        [...this.children].forEach( (ele, idx) => {
+            ele.className = "fa fa-star-o";
+            if(idx <= Math.floor($x)) {
+                ele.className = "fa  fa-star";
+                score += 2;
+            }
         } )
-    }
+
+        if($x%1 < 0.5) {
+            this.children[Math.floor($x)].className = "fa fa-star-half-o";
+            score -= 1;
+        }
+
+        $form.score.value = score;
+    };
 
     const render = function() {
-        $(".review-container").innerHTML = ``;
-        dataArr.forEach( (ele) => {
+        const reviewContainer = $(".review-container");
+        reviewContainer.innerHTML = ``;
+        dataArr.forEach( ele => {
             const item = document.createElement("div");
-            item.classList.add("item");
-            const scoreArr = Array.from( Array(5), (_, idx) => {
+            addClass(item, "item");
+            const scoreArr = Array.from(Array(5), (_,idx) => {
                 if(idx < Math.floor(ele.score/2)) return "<i class='fa fa-star'></i>";
-                else if(ele.score%2 && idx === Math.floor(ele.score/2)) return "<i class='fa fa-star-half-o'></i>";
-                else return "<i class='fa fa-star-o'></i>";
-            } )
+                else if(ele.score%2 && idx == Math.floor(ele.score/2)) return "<i class='fa fa-star-half-o'></i>";
+                else return "<i class='fa fa-star-o'></i>"
+            });
             item.innerHTML = `
-                <p class="name">${ele.name}</p>
-                <p class="date">${ele.date}</p>
-                <div class="photo">
-                    <img src="${ele.photos[0]}" alt="reviewImg" title="reviewImg">
-                </div>
-                <div class="score_box">
-                    ${scoreArr.map( e => e ).join("")}
-                </div>
-                <p class="product">구매품: ${ele.product}</p>
-                <p class="shop">구매처: ${ele.shop}</p>
-                <p class="content">내용: ${ele.content}</p>
+            <p class="name">${ele.name}</p>
+                    <p class="date">${ele.date}</p>
+            <div class="photo">
+                <img src="${ele.photo[0]}" alt="reviewImg" title="reviewImg">
+            </div>
+            <div class="score_box">
+                ${scoreArr.map( e => e ).join("")}
+            </div>
+            <p class="product">구매품: ${ele.product}</p>
+            <p class="shop">구매처: ${ele.shop}</p>
+            <p class="content">내용: ${ele.content}</p>
             `;
-            $(".review-container").appendChild(item);
+            reviewContainer.appendChild(item);
         } )
-    }
+    };
 
     const _formSubmit = async function(e) {
         e.preventDefault();
+
         const photos = $All("input[name='photo']", $reviewModal);
 
         try {
             if(this.name.value.length < 2 || this.name.value.length > 50)
-                throw "이름은 2글자 이상 50글자 이내여야 합니다.";
+                throw "이름은 2글자 이상 50글자 이내로 입력해주세요.";
             if(!/[a-zA-Zㄱ-ㅎ가-힣]/g.test(this.name.value))
-                throw "이름은 한글 혹은 영어로만 이루어 있어야 합니다.";
+                throw "이름은 한글과 영어만 입력하실 수 있습니다.";
             if(this.product.value.length < 1)
-                throw "구매품을 입력하세요";
+                throw "구매품을 입력해주세요.";
             if(this.shop.value.length < 1)
-                throw "구매처을 입력하세요";
+                throw "구매처을 입력해주세요.";
             if(this.date.value.length < 1)
-                throw "구매일을 입력하세요";
+                throw "구매일을 입력해주세요.";
             if(this.content.value.length < 100)
-                throw "내용을 100글자 이상 입력해 주세요";
+                throw "내용을 100글자 이상 입력해 주세요.";
             if(this.score.value < 1)
-                throw "별점을 입력해주세요";
+                throw "별점을 입력해주세요.";
             if(!photos.length || !photos.some( ele => ele.value ))
-                throw "사진을 1장 이상 넣어주세요";
+                throw "사진을 1장 이상 넣어주세요.";
         } catch(e) {
             alert(e);
-            return
+            return;
         }
 
+        const returnSrc = (img) => {
+            return new Promise( res => {
+                const reader = new FileReader();
+                reader.readAsDataURL(img);
+                reader.onload = () => { res(reader.result) };
+            } )
+        };
 
         const photoArr = [];
+
         for(const $p of photos) {
-            if(!$p.files[0]) continue;
-            photoArr.push(await returnSrc($p.files[0]));
+            if( !$p.files[0] ) continue;
+            photoArr.push( await returnSrc($p.files[0]) );
         }
+
 
         const obj = {
             name: this.name.value,
@@ -314,47 +352,18 @@ function reviewPage() {
             date: this.date.value,
             content: this.content.value,
             score: this.score.value,
-            photos: photoArr
+            photo: photoArr
         };
 
         dataArr.splice(0, 0, obj);
-        alert("구매 후기가 등록되었습니다.");
+        alert("구매후기가 등록되었습니다.");
+        _toggleModal();
         render();
-        toggleModal();
     }
 
-    const _scoreInfo = function(e) {
-        const $x = e.layerX/40 < 0 ? 0 : e.layerX/40;
-        let score = 0;
-
-
-        [...this.children].forEach( (ele,idx) => {
-            ele.className = "fa fa-star-o";
-            if(idx <= Math.floor($x)) {
-                ele.className = "fa fa-star";
-                score += 2;
-            }
-        } )
-
-        if($x%1 <= 0.5) {
-            this.children[Math.floor($x)].className = "fa fa-star-half-o";
-            score -= 1;
-        }
-
-        $form.score.value = score;
-    };
-
-    const addPhoto = function() {
-        const input = document.createElement("input");
-        input.type = "file";
-        input.name = "photo";
-        $(".photo_box", $reviewModal).appendChild(input);
-    }
-
-    $add($opneBtn, toggleModal);
-    $add($closeBtn, toggleModal);
+    $add($openBtn, _toggleModal);
+    $add($closeBtn, _toggleModal);
+    $add($addPhotoBtn, _insertPhotoBtn);
+    $add($scoreBox, _scoreChange, "mousemove");
     $add($form, _formSubmit, "submit");
-    $add($addPhotoBtn, addPhoto);
-    $add($socreBox, _scoreInfo, "mousemove");
-
 }

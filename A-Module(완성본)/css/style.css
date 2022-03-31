@@ -1,4 +1,4 @@
-*{margin: 0; padding: 0; box-sizing: border-box;}
+*{margin: 0; padding: 0; box-sizing: border-box; color: #666;}
 ul, li{list-style: none;}
 a{text-decoration: none; color: inherit;}
 .flex{display: flex;}
@@ -8,16 +8,21 @@ input[type="radio"]{display: none;}
 
 #app{width: 100%; height: 100vh;}
 
-/* 헤더 + 메뉴 팝업창 */
+/* 헤더 */
 #app header{position: fixed; width: 100%; height: 100px; padding: 0 120px 0 50px; justify-content: space-between; align-items: center; z-index: 10;}
-#app header .logo{justify-content: center; align-items: center;}
-#app header .logo img{width: 250px;}
-#app header .menus{height: 100%; gap: 70px; font-size: 40px; align-items: center;}
+#app header .logo{justify-content: center; align-items: center; padding: 20px;}
+#app header .logo img{width: 200px; margin: 5px 10px;}
+#app header .menus{height: 100%; gap: 30px; font-size: 40px;}
 #app header .menus>*{display: flex; justify-content: center; align-items: center;}
 
+#app header .menus .menu{position: relative;}
+#app header .menus .menu_container ul{position: absolute; height: 100%; left: 0; top: 0; text-align: center; align-items: center; transform: translateX(-100%);}
+#app header .menus .menu_container ul li{width: 140px; line-height: 35px; margin-bottom: 300px; padding: 5px 0; font-size: 20px; font-weight: bold;}
+#app header .menus .menu_container ul li.high{color: #fa0;}
+
 #app header .menus label{display: block; cursor: pointer; text-align: center;}
-#app header .menus label i{display: block; width: 50px; line-height: 50px;}
-#app header .menus label::after{content: ""; display: block; width: 0%; height: 5px; margin: 0 auto; background: #333; transition: .3s;}
+#app header .menus label i{display: block; font-size: 36px; width: 50px; line-height: 50px; color: #666;}
+#app header .menus label::after{content: ""; display: block; width: 0%; height: 5px; margin: 0 auto; background: #fa0; transition: .3s;}
 #app header .menus label:hover::after{width: 100%; transition: .3s;}
 
 #app header .menus .sns{position: relative; flex-direction: column;}
@@ -26,82 +31,90 @@ input[type="radio"]{display: none;}
 #app #sns_on:checked~ header label.sns_on i{display: none;}
 #app #sns_off:checked~ header label.sns_off i{display: none;}
 
-#app #sns_on:checked~ header .menus .sns img:nth-child(1){left: -60px; transition: .7s;}
-#app #sns_on:checked~ header .menus .sns img:nth-child(2){left: 0px; transition: .7s;}
-#app #sns_on:checked~ header .menus .sns img:nth-child(3){left: 60px; transition: .7s;}
+#app #sns_on:checked~ header .menus .sns img:nth-child(1){left: -60px; transition: .7s; animation: sns_anim .5s .7s linear;}
+#app #sns_on:checked~ header .menus .sns img:nth-child(2){left: 0px; transition: .9s; animation: sns_anim .5s .9s linear;}
+#app #sns_on:checked~ header .menus .sns img:nth-child(3){left: 60px; transition: 1.1s; animation: sns_anim .5s 1.1s linear;}
 
+@keyframes sns_anim{
+    0%{transform: scale(1);}
+    50%{transform: scale(1.2);}
+    100%{transform: scale(1);}
+}
 
-#app .menu_popup{position: fixed; width: 100%; height: 100%; left: 0; top: -110%; justify-content: center; align-items: center; background: rgba(0, 0, 0, .8); z-index: 11; transition: .5s;}
-#app .menu_popup .popup-menu{position: relative; width: 350px; height: 250px; padding: 50px; align-items: center; background: #111; color: #fff; border-radius: 5px;}
-#app .menu_popup .close{position: absolute; right: 35px; top: 15px; font-size: 50px; cursor: pointer;}
-#app .menu_popup .popup-menu ul li{line-height: 40px; font-size: 27px; font-weight: bold; margin: 10px 0;}
-#app .menu_popup .popup-menu ul li.high{color: red;}
+#app #menu_on:checked~ header label.menu_on i{display: none;}
+#app #menu_off:checked~ header label.menu_off i{display: none;}
 
-#app #menu_on:checked~ .menu_popup{top: 0; transition: .5s;}
+#app header .menus .menu_container ul li:nth-child(1){transition: .5s;}
+#app header .menus .menu_container ul li:nth-child(2){transition: .7s;}
+#app header .menus .menu_container ul li:nth-child(3){transition: .9s;}
+
+#app #menu_on:checked~ header .menus .menu_container ul li:nth-child(1){margin-bottom: 0; transition: .5s;}
+#app #menu_on:checked~ header .menus .menu_container ul li:nth-child(2){margin-bottom: 0; transition: .7s;}
+#app #menu_on:checked~ header .menus .menu_container ul li:nth-child(3){margin-bottom: 0; transition: .9s;}
 
 
 /* 메인 컨텐츠 */
-#app section>.side{font-size: 38px; cursor: pointer;}
-#app section>.side::before{content: ""; display: block; width: 3px; height: 30px; margin: 0 auto -7px; background: #333;}
-#app section>.prev{position: absolute; top: 50%; left: 0px; transform: rotate(-90deg);}
-#app section>.next{position: absolute; top: 50%; right: 0px; transform: rotate(90deg);}
+#app section>.side{font-size: 35px; cursor: pointer; color: #333;}
+#app section>.side::before{content: ""; display: block; width: 50%; height: 7px; margin: 25px auto 3px; background: #fa0; border-radius: 10px;}
+#app section>.prev{position: fixed; top: 50%; left: 0px; transform: rotate(-90deg);}
+#app section>.next{position: fixed; top: 50%; right: 0px; transform: rotate(90deg);}
 
 
 #app section.main-container{width: 100%; height: calc(100% - 30px);}
-#app section.main-container .content{width: 1400px; height: 100%; margin: 0 auto; justify-content: space-between; align-items: center;}
-#app section.main-container .content .item{position: relative; width: 375px; height: 630px; border: 2px solid #eee; border-radius: 15px; transform: rotate(0.0001deg); overflow: hidden; cursor: pointer;}
+#app section.main-container .content{width: 1300px; height: 100%; margin: 0 auto; justify-content: space-between; align-items: center;}
+#app section.main-container .content .item{position: relative; width: 375px; height: 630px; top: -120%; border: 1px solid #eee; border-top-left-radius: 10px; border-top-right-radius: 10px; transform: rotate(0.0001deg); overflow: hidden;}
+#app section.main-container .content .item>.link_btn{position: absolute; width: 70px; height: 30px; right: 15px; bottom: 13px; border: 1px solid #fa0; background: none; cursor: pointer; transition: .3s;}
+#app section.main-container .content .item>.link_btn a{color: #fa0;}
+#app section.main-container .content .item>.link_btn:hover{background: #fa0; color: #fff; transition: .3s;}
+#app section.main-container .content .item>.link_btn:hover a{color: #fff;}
+
 #app section.main-container .content .item .sub_img{position: absolute; object-fit: cover; width: 35px; height: 35px; top: 10px; right: 20px; opacity: .8; z-index: 1;}
 #app section.main-container .content .item .photo{width: 100%; height: 70%; overflow: hidden;}
-#app section.main-container .content .item .text{padding: 10px 15px; color: #bbb;}
-#app section.main-container .content .item .text h4{font-size: 17px; margin: 5px 0;}
-#app section.main-container .content .item .text p{font-weight: bold; color: #ddd; font-size: 17px;}
+#app section.main-container .content .item .text{padding: 10px 15px;}
+#app section.main-container .content .item .text h4{font-size: 22px; margin: 5px 0; color: #666;}
+#app section.main-container .content .item .text i{color: #fa0; font-size: 27px; margin: 5px;}
+#app section.main-container .content .item .text p{color: #666; font-size: 17px; padding: 5px; text-align: justify;}
+
 
 #app section.main-container .content .item .photo img{object-fit: cover; width: 100%; height: 100%; transition: .3s;}
 #app section.main-container .content .item:hover .photo>img{transform: scale(1.05); transition: .3s;}
 
-#app section.main-container .content a:nth-child(1) .item{animation: content_move 4s infinite linear; top: -10px;}
-#app section.main-container .content a:nth-child(2) .item{animation: content_move2 4s infinite linear; top: 30px;}
-#app section.main-container .content a:nth-child(3) .item{animation: content_move3 4s infinite linear; top: -30px;}
+#app section.main-container .content .item:nth-child(1){animation: content_move 4s infinite linear, start_animation 1s linear forwards;  width: 360px; height: 560px;}
+#app section.main-container .content .item:nth-child(2){animation: content_move 4s infinite linear, start_animation 1s .3s linear forwards;  width: 420px; height: 700px; box-shadow: 0 0 8px #ddd;}
+#app section.main-container .content .item:nth-child(3){animation: content_move 4s infinite linear, start_animation 1s .7s linear forwards;  width: 360px; height: 560px;}
 
+
+@keyframes start_animation{
+    0%{top: -120%;}
+    100%{top: 0%;}
+}
 
 @keyframes content_move{
-    0%{left: 0px;}
-    33.3333%{left: 20px;}
-    66.6666%{left: -20px;}
-    100%{left: 0;}
+    0%{transform: scale(1);}
+    50%{transform: scale(1.02);}
+    100%{transform: scale(1);}
 }
-
-@keyframes content_move2{
-    0%{left: 20px;}
-    50%{left: -10px;}
-    100%{left: 20px;}
-}
-
-@keyframes content_move3{
-    0%{left: -15px;}
-    50%{left: 30px;}
-    100%{left: -15px;}
-}
-
 
 
 /* 푸터 */
 #app footer{width: 100%; height: 30px; padding: 0 20px;}
-#app footer p{width: 100%; text-align: right; color: #ddd; font-size: 20px; font-weight: bold;}
+#app footer p{width: 100%; text-align: right; color: #999; font-size: 20px;}
 
 
 
 /* 서브 페이지 */
 #app section.sub{padding-top: 120px;}
-#app section.sub>h3.title{border-left: 7px solid slateblue; margin: 50px 0; padding: 0 20px; font-size: 30px;}
-#app section.sub .high{color: blueviolet;}
+#app section.sub>h3.title{border-left: 7px solid #fa0; margin: 50px 0; padding: 0 20px; font-size: 30px;}
+#app.sub2 section.sub .high{color: rgb(222, 67, 88);}
+#app.sub3 section.sub .high{color: rgb(222, 67, 88);}
+
 
 /* 서브1 페이지 */
-#app section.map{width: 1200px; margin: 0 auto;}
-#app section.map .svg{position: relative; width: 1000px; margin: 0 auto; padding: 0 0 200px; overflow: hidden;}
+#app section.map{width: 1200px; margin: 0 auto; overflow: hidden;}
+#app section.map .svg{position: relative; width: 1000px; margin: 0 auto; padding: 0 0 200px;}
 
 #app section.map .svg .area li{position: absolute; left: 0; top: 0; font-size: 27px; font-weight: bold; cursor: pointer; transition: .3s;}
-#app section.map .svg .area li:hover{color: blueviolet; transition: .3s;}
+#app section.map .svg .area li:hover{color: #fa0; transition: .3s;}
 
 #app section.map .svg .area li:nth-child(1){left: 60%; top: 43%;}
 #app section.map .svg .area li:nth-child(2){left: 30%; top: 45%;}
@@ -123,33 +136,37 @@ input[type="radio"]{display: none;}
 #app section.map .svg .area li:nth-child(18){left: 31%; top: 22%;}
 
 #app section.map .svg .area li:hover .content{top: 110%; transition: .5s;}
-#app section.map .svg .area .content{position: absolute; width: 270px; height: 200px; top: 2000px; background: #fff; border-radius: 15px; overflow: hidden; border: 2px solid #333; z-index: 5; transition: .5s;}
-#app section.map .svg .area .content h4{padding: 0 10px; font-size: 23px; color: #333;}
-#app section.map .svg .area .content img{object-fit: cover; width: 100%; height: 70%;}
+#app section.map .svg .area .content{position: absolute; width: 240px; top: 2000px; padding: 10px; background: #fff; border-radius: 7px; overflow: hidden; border: 1px solid #666; z-index: 5; transition: .5s;}
+
+#app section.map .svg .area .content img{object-fit: cover; width: 100%; height: 170px;}
+#app section.map .svg .area .content .speci_box{width: 100%; grid-template-columns: repeat(2, 1fr); gap: 3px;}
+#app section.map .svg .area .content .speci_box .item{font-size: 14px; color: #333; white-space: nowrap;}
+#app section.map .svg .area .content .speci_box .item::before{content: "특산품"; background: #fa0; color: #fff; margin: 0 5px; font-weight: bold;}
+#app section.map .svg .area .content h4{font-size: 23px; margin: 5px 0; color: #333;}
 
 /* 서브2 페이지 */
 #app section.event{width: 1000px; margin: 0 auto;}
 #app section.event .anno{position: relative;}
 #app section.event .anno fieldset{border: 2px dashed #bbb; padding: 10px 35px;}
-#app section.event .anno fieldset legend{margin: 0 auto; padding: 0 20px; font-size: 35px; font-weight: bold;}
-#app section.event .anno fieldset p{font-weight: bold; font-size: 18px; margin: 10px 0;}
+#app section.event .anno fieldset legend{margin: 0 auto; padding: 0 20px; font-size: 27px; font-weight: bold;}
+#app section.event .anno fieldset p{font-size: 18px; margin: 10px 0;}
 #app section.event .anno fieldset ul{font-size: 17px; margin: 20px 0; font-weight: 600;}
 #app section.event .anno fieldset ul li{line-height: 30px;}
 
 #app section.event .anno>img{position: absolute; width: 400px; bottom: -30%; right: -10%; object-fit: cover;}
 
 #app section.event .game{margin: 250px 0 20px;}
-#app section.event .game>h3{margin: 60px 0 20px; font-size: 30px;}
-#app section.event .game .card-container{width: 90%; margin: 0 auto; padding: 20px; border: 1px solid #333; grid-template-columns: repeat(4, 1fr); gap: 20px;}
+#app section.event .game>h3{margin: 60px 0 20px; font-size: 27px;}
+#app section.event .game>h3 i{color: #fa0;}
+#app section.event .game .card-container{width: 90%; margin: 0 auto; padding: 20px; border: 2px solid #ddd; grid-template-columns: repeat(4, 1fr); gap: 20px;}
 #app section.event .game .card-container .card{position: relative; width: 150px; height: 200px; margin: 0 auto; perspective: 300px;}
-#app section.event .game .card-container .card .item{position: absolute; width: 100%; height: 100%; text-align: center; line-height: 200px; border: 1px solid #000; backface-visibility: hidden; transition: 1s; border-radius: 10px; overflow: hidden; cursor: pointer;}
+#app section.event .game .card-container .card i{font-size: 30px;}
+#app section.event .game .card-container .card .item{position: absolute; width: 100%; height: 100%; text-align: center; line-height: 200px; border: 2px solid #ccc; backface-visibility: hidden; transition: 1s; border-radius: 10px; overflow: hidden; cursor: pointer;}
+#app section.event .game .card-container .card img{object-fit: cover; width: 100%; height: 100%;}
 
-#app section.event .game .card-container .card .front{background: blueviolet; transform: rotateY(180deg);}
-#app section.event .game .card-container .card .back{transform: rotateY(0deg); font-size: 20px;}
+#app section.event .game .card-container .card .front{background: skyblue; transform: rotateY(180deg);}
+#app section.event .game .card-container .card .back{transform: rotateY(0deg); background: #fafafa; font-size: 20px;}
 #app section.event .game .card-container .card.open .front{transform: none;}
-
-/* #app section.event .game .card-container .card:hover .front{transform: rotateY(0deg);}
-#app section.event .game .card-container .card:hover .back{transform: rotateY(-180deg);} */
 
 #app section.event .display{width: 90%; margin: 20px auto; padding: 0 10px;}
 #app section.event .display>*{width: 100%; text-align: right;}
@@ -157,8 +174,8 @@ input[type="radio"]{display: none;}
 #app section.event .display .score_box{font-size: 16px;}
 
 #app section.event .btns{width: 100%; height: 100px; justify-content: center; align-items: center; gap: 35px;}
-#app section.event .btns button{width: 110px; line-height: 45px; border: 1px solid blueviolet; background: none; color: blueviolet; font-size: 16px; font-weight: bold; cursor: pointer; transition: .3s;}
-#app section.event .btns button:hover{background: blueviolet; color: #fff; transition: .3s;}
+#app section.event .btns button{width: 110px; line-height: 45px; border: 1px solid #fa0; background: none; color: #fa0; font-size: 16px; font-weight: bold; cursor: pointer; transition: .3s;}
+#app section.event .btns button:hover{background: #fa0; color: #fff; transition: .3s;}
 
 #app section.event .stamp{width: 100%; text-align: center; margin: 20px 0;}
 #app section.event .stamp h3{margin: 20px 0 40px; font-size: 43px;}
@@ -169,25 +186,33 @@ input[type="radio"]{display: none;}
 #app section.event .stamp .stamp_container .item.check h4{border-color: red; color: red;}
 
 /* 서브3 페이지 */
-#app .logo button{width: 120px; line-height: 40px; background: blueviolet; border: none; font-size: 16px; font-weight: bold; color: #fff; cursor: pointer; transition: .5s;}
-#app .logo button:hover{background: rgb(79, 0, 153); transition: .3s;}
+#app .add_review{position: fixed; width: 120px; line-height: 40px; left: 60px; background: #fa0; border: none; font-size: 16px; font-weight: bold; color: #fff; cursor: pointer; transition: .5s;}
+#app .add_review:hover{background: rgb(207, 153, 44); transition: .3s;}
 
 #app section.review{width: 100%;}
 #app section.review>h3.title{width: 1400px; margin: 0 auto;}
 #app section.review .anno{position: relative; width: 1100px; margin: 70px auto 100px;}
 #app section.review .anno fieldset{padding: 20px 40px;}
 #app section.review .anno fieldset legend{margin: 0 auto; padding: 0 20px; font-size: 27px; font-weight: bold;}
-#app section.review .anno fieldset p{font-size: 17px; font-weight: bold; margin: 20px 0;}
+#app section.review .anno fieldset p{font-size: 17px; line-height: 30px; margin: 20px 0; padding: 0 20px;}
+#app section.review .anno fieldset .photo{padding: 0 20px;}
+#app section.review .anno fieldset .photo img{object-fit: cover; width: 150px; height: cover; border-radius: 100%; overflow: hidden; border: 1px solid #ccc;}
 
 #app section.review .review-container{width: 1400px; margin: 0 auto; grid-template-columns: repeat(4, 1fr); gap: 30px;}
 #app section.review .review-container .item{position: relative; width: 300px; height: 400px; margin: 0 auto; padding: 20px; border: 1px solid #eee; cursor: pointer;}
-#app section.review .review-container .item .name{display: inline-block; padding: 5px 10px; margin-bottom: 10px; background: blueviolet; color: #fff; font-size: 17px; font-weight: bold; border-radius: 5px;}
-#app section.review .review-container .item .date{position: absolute; top: 15px; right: 15px; font-size: 15px; font-weight: bold; color: #ddd;}
+#app section.review .review-container .item .name{display: inline-block; padding: 5px 10px; margin-bottom: 10px; background: skyblue; color: #fff; font-size: 17px; font-weight: bold; border-radius: 5px;}
+#app section.review .review-container .item .date{position: absolute; top: 20px; right: 17px; font-size: 15px; font-weight: bold; color: #ddd;}
 #app section.review .review-container .item .photo{width: 100%; height: 50%; border-radius: 5px; overflow: hidden;}
 #app section.review .review-container .item .score_box{margin: 10px 0; padding: 0 5px;}
-#app section.review .review-container .item .score_box i{font-size: 25px; color: blueviolet;}
+#app section.review .review-container .item .score_box i{font-size: 17px; color: skyblue;}
 #app section.review .review-container .item .product,
 #app section.review .review-container .item .shop{line-height: 25px; font-weight: bold;}
 #app section.review .review-container .item .content{width: 100%; height: auto; line-height: 50px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;}
 
 #app section.review .review-container .item img{object-fit: cover; width: 100%; height: 100%;}
+
+
+
+
+/* 222, 67, 88 */
+/* 130, 189, 226 */
