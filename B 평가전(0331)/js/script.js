@@ -179,6 +179,8 @@ function eventPage() {
     const $time = $(".event .time");
     const $eventModal = $(".event_modal");
     const $form = $("form", $eventModal);
+    const $tel = $("input[name='tel']", $eventModal);
+    const $stamp = $(".stamp .stamp-container").children[0];
     const $score = $(".display .score");
 
     let gamePlay = false;
@@ -188,8 +190,30 @@ function eventPage() {
     let setTimer = null;
     let setCardTimer = null;
 
+    const toggleModal = function() {
+        $eventModal.classList.toggle("none");
+        $form.reset();
+    }
+
+    const reset = function() {
+        $cards.forEach( ele => {
+            ele.className = "card";
+        } );
+        clearInterval(setTimer);
+        clearTimeout(setCardTimer);
+        foucsCard = null;
+        gamePlay = false;
+        cardChoise = false;
+        $(".min", $time).innerText = '0';
+        $(".sec", $time).innerText = '0';
+        $score.innerText = 0;
+        $startBtn.className = "start_btn";
+        addClass($reStartBtn, "none");
+    };
+
     const _gameReStart = function() {
-        
+        reset();
+        _gameStart();
     };
 
     const gameEnd = function() {
@@ -201,10 +225,9 @@ function eventPage() {
             addClass(ele, "active");
             addClass(ele, "end");
         } );
-
+        toggleModal();
     };
 
-    gameEnd();
     
     const timer = (min, sec, end) => {
         $(".min", $time).innerText = min;
@@ -269,6 +292,7 @@ function eventPage() {
                 clearTimeout(setCardTimer);
                 foucsCard = null;
                 $score.innerText = parseInt($score.textContent)+1;
+                if(parseInt($score.textContent) >= 8) gameEnd();
             } else {
                 cardChoise = false;
                 clearTimeout(setCardTimer);
@@ -310,7 +334,39 @@ function eventPage() {
         addClass($startBtn, "none");
     };
 
+    const _telChange = function() {
+        this.value = this.value
+        .replace(/[^0-9]/g, "")
+        .replace(/^(\d{0,3})(\d{0,4})(\d{0,4})$/g, "$1-$2-$3")
+        .replace(/\-{1,2}$/g, "");
+    };
+
+    const _formSubmit = function(e) {
+        e.preventDefault();
+
+        try{
+            if(this.name.value.length < 2 || this.name.value.length > 50)
+                throw "이름은 2글자 이상 50글자 이내여야 합니다.";
+            if(!/[a-zA-Zㄱ-ㅎ가-힣]/g.test(this.name.value))
+                throw "이름은 한글 혹은 영문만 입력 가능합니다.";
+            if(this.tel.value.length < 13)
+                throw "전화번호를 끝까지 입력해주세요.";
+        } catch(e) {
+            alert(e);
+            return;
+        }
+
+        alert("이벤트에 참여해 주셔서 감사합니다.");
+        reset();
+        toggleModal();
+        const date = new Date();
+        addClass($stamp, "check");
+        $stamp.children[0].innerText = `${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}`;
+    }
+
     $add($startBtn, _gameStart);
     $add($reStartBtn, _gameReStart);
     $add($hintBtn, () => {_gameHint(3)});
+    $add($tel, _telChange, "input");
+    $add($form, _formSubmit, "submit");
 };
