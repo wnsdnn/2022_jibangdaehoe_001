@@ -258,6 +258,7 @@ function eventPage() {
     };
 
     const _gameHint = function(sec) {
+        if( !gamePlay ) return;
         gamePlay = false;
         cardChoise = false;
         clearTimeout(setCardTimer);
