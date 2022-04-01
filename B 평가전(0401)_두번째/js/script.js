@@ -121,7 +121,7 @@ function reviewPage() {
         try {
             if(this.name.value.length < 2 || this.name.value.length > 50)
                 throw "이름은 2글자 이상 50글자 이내여야 합니다.";
-            if(!/[a-zA-Zㄱ-ㅎ가-힣]/g.test(this.name.value))
+            if(!/[a-zA-Zㄱ-ㅎ가-힣ㅏ-ㅣ]/g.test(this.name.value))
                 throw "이름은 한글 또는 영문만 입력 가능합니다.";
             if(this.product.value.length < 1)
                 throw "구매품을 입력해주세요.";
@@ -346,7 +346,7 @@ function eventPage() {
         try {
             if(this.name.value.length < 2 || this.name.value.length > 50)
                 throw "이름은 2글자 이상 50글자 이내여야 합니다.";
-            if(!/[a-zA-Zㄱ-ㅎ가-힣]/g.test(this.name.value))
+            if(!/[a-zA-Zㄱ-ㅎ가-힣ㅏ-ㅣ]/g.test(this.name.value))
                 throw "이름은 한글 또는 영문만 입력 가능합니다.";
             if(this.tel.value.length < 13)
                 throw "전화번호를 끝까지 입력해 주세요";
