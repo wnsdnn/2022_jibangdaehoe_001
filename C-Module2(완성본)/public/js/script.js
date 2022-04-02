@@ -42,11 +42,21 @@ function reviewPage() {
     const $closeBtn = $(".close", $reviewModal);
     const $scoreContainer = $(".score_container", $reviewModal);
     const $addPhotoBtn = $(".add_photo", $reviewModal);
-    const dataArr = [];
+
+    const $reviewDetailModal = $(".review_datail_modal");
+    const $detailCloseBtn = $(".close", $reviewDetailModal);
+    const $prevBtn = $(".prev", $reviewDetailModal);
+    const $nextBtn = $(".next", $reviewDetailModal);
+    const $detailForm = $("form", $reviewDetailModal);
+    let reviewList = null;
 
     const _toggleModal = function() {
         $reviewModal.classList.toggle("none");
         $form.reset();
+    };
+
+    const _toggleDetailModal = function() {
+        $reviewDetailModal.classList.toggle("none");
     };
 
     const _scoreChange = function({layerX}) {
@@ -80,17 +90,26 @@ function reviewPage() {
         $add(input, _photoChange, "change");
     };
 
+    // 페이지에서 처음으로 후기 작성시 true로 변경
+    let fvisit = true;
+
     const render = async function() {
         const $reviewContainer = $(".review-container");
-        $reviewContainer.innerHTML = ``;
+        const $review  = $All(".review-container .item");
+        // 0의 max값을 찾으면 -Infinite 나오니까 -1보다 작으면 0으로 리턴 아니 그냥 그 숫자로
+        const maxKey = Math.max(...[...$review].map( $e => $e.dataset.key )) <= -1 ? 0 : Math.max(...[...$review].map( $e => $e.dataset.key ));
+        // 1. 컨테이너의 key가 가장 큰 값을 찾음
+        // 2. 컨테이너의 값이 없기 때문의 Math.max로 돌리면 결과는 -Infinte가 나옴
+        // 3. 결과를 0으로 바꿔줌
+        // 4. 이 다음부터는 db에 리뷰가 있고 컨테이너가 비워지지 않기 때문에 $review.length가 항상 true임
+        const key = $review.length || !fvisit ? maxKey + 1 : lastKey;
+        fvisit = false;
+        reviewList = await fetch(`/api/reviews?last-key=${key}`).then( res => res.json() );
 
-        // const maxKey = Math.max(...[...$reviewContainer.children].map( $e => $e.dataset.key ));
-        // const key = maxKey ? maxKey+1 : lastKey;
-
-        const reviewList = await fetch(`/api/reviews?last-key=${key}`).then( res => res.json() );
         if(reviewList.message) {
             alert(reviewList.message);
         } else {
+            $reviewContainer.innerHTML = ``;
             reviewList.reviews.forEach( ele => {
                 const item = document.createElement("div");
                 item.dataset.key = ele.key;
@@ -114,14 +133,69 @@ function reviewPage() {
                 <p>내용 : ${ele.contents}</p>
                 `;
                 $reviewContainer.appendChild(item);
+                $add(item, _detailHandle);
             } )
         }
-    }
+    };
+
+    const _detailHandle = function(){
+        _toggleDetailModal();
+        const $key = this.dataset.key;
+        detailRender($key);
+    };
+
+    const _imgClick = function() {
+        $(".main img", $reviewDetailModal).src = this.src;
+        $All(".photo .sub img").forEach( ele => removeClass(ele, "none") );
+        addClass(this, "none");
+    };
+
+    const detailRender = async function(key) {
+        const reviewDApi = await fetch(`/api/reviews/${key}`).then( res => res.json() );
+        $All(".photo .sub img").forEach( ele => ele.remove() );
+        if(reviewDApi.message) {
+            alert(reviewDApi.message);
+        } else {
+            $detailForm.key.value = key;
+            $(".name h4", $reviewDetailModal).innerText = reviewDApi.name;
+            $(".product h4", $reviewDetailModal).innerText = reviewDApi.product;
+            $(".shop h4", $reviewDetailModal).innerText = reviewDApi.shop;
+            $(".date h4", $reviewDetailModal).innerText = reviewDApi["purchase-date"];
+            $(".score h4", $reviewDetailModal).innerText = reviewDApi.score;
+            $(".content p", $reviewDetailModal).innerText = reviewDApi.contents;
+            reviewDApi.photos.forEach( (ele, idx) => {
+                if(idx === 0) $(".main img", $reviewDetailModal).src = `./reviewImg/${ele.file}`;
+                const img = document.createElement("img");
+                img.src = `./reviewImg/${ele.file}`;
+                $add(img, _imgClick);
+                $(".photo .sub", $reviewDetailModal).appendChild(img);
+            } )
+            addClass($(".photo .sub", $reviewDetailModal).children[0], "none");
+        }
+    };
+
+    const _moveDetail = function(name){
+        const $review  = $All(".review-container .item");
+        $review.forEach( (ele, idx) => {
+            if(ele.dataset.key == $detailForm.key.value) {
+                let key = null;
+                if(name === "prev") key = idx-1;
+                else key = idx+1;
+
+                if($review[key]) {
+                    detailRender($review[key].dataset.key);
+                } else {
+                    alert("구매후기가 존재하지 않습니다.");
+                    return;
+                }
+            };
+        })
+    };
+
     
 
     const _formSubmit = async function(e) {
         e.preventDefault();
-
         const photos = $All("input[name='photo']", $reviewModal);
 
         try {
@@ -219,6 +293,9 @@ function reviewPage() {
     $add($scoreContainer, _scoreChange, "mousemove");
     $add($addPhotoBtn, _insertPhotoBtn);
     $add($form, _formSubmit, "submit");
+    $add($detailCloseBtn, _toggleDetailModal);
+    $add($prevBtn, () =>{_moveDetail("prev")});
+    $add($nextBtn, () =>{_moveDetail("next")});
 };
 
 function eventPage() {
@@ -438,8 +515,3 @@ function eventPage() {
     $add($form.tel, _telChange, "input")
 
 };
-
-
-
-
-

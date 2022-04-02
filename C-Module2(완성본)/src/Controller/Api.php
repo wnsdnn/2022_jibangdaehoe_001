@@ -80,7 +80,7 @@ class Api
         $returnArr = (object) [];
 
         if( $name == "" || $product == "" || $shop == "" || $_POST["purchase-date"] == "" || $contents == "" || $score == "" ) {
-            header("HTTP/1.1 401");
+            header("HTTP/1.1 404");
             $returnArr->message = "필수 입력값이 누락 되었습니다.";
         } else {
             $default = fetchAll("SELECT * FROM `review` ORDER BY `key` DESC");
@@ -113,9 +113,11 @@ class Api
         $returnArr = (object) [];
         $key = $_GET["last-key"];
 
-        $list = fetchAll("SELECT * FROM `review` WHERE `key` <= ? ORDER BY `date` DESC", [$key]);
-
-        if(count($list)) {
+        if($key <= -1) {
+            $returnArr->message = "오류가 발생했습니다. 다시 시도해 주세요.";
+        } else {
+            $list = fetchAll("SELECT * FROM `review` WHERE `key` <= ? ORDER BY `date` DESC", [$key]);
+    
             $returnArr->reviews = [];
             foreach($list as $item) {
                 $arr = (object) [
@@ -130,10 +132,40 @@ class Api
                 ];
                 array_push($returnArr->reviews, $arr);
             }
-        } else {
-            $returnArr->message = "오류가 발생했습니다. 다시 시도해 주세요.";
         }
 
         echo json_encode($returnArr);
     }
+
+    function reviewDetail($args) {
+        header("HTTP/1.1 200 OK");
+        header("Content-Type: apllication/json; charset=UTF-8");
+        $key = $args[1];
+        
+        $result = fetch("SELECT * FROM `review` WHERE `key` = ?",[$key]);
+        if(!$result) {
+            header("HTTP/1.1 404 OK");
+            $returnArr = (object) [];
+            $returnArr->message = "구매후기를 찾을수 없습니다.";
+            echo json_encode($returnArr);
+        } else {
+            $photoArr = [];
+            foreach( json_decode($result->photos) as $p ) {
+                array_push($photoArr, (object) ["file" => $p]);
+            }
+            
+            $returnArr = (object) [
+                "name" => $result->name,
+                "product" => $result->product,
+                "shop" => $result->shop,
+                "purchase-date" => $result->date,
+                "contents" => $result->content,
+                "score" => $result->score,
+                "photos" => $photoArr
+            ];
+            echo json_encode($returnArr);
+        }
+
+    }
+    
 }

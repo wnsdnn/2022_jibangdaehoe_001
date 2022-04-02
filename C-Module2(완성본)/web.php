@@ -14,6 +14,7 @@ $get(
 
     "/api/event/:tel/stamps@Api@stampApi",
     "/api/reviews@Api@reviewList",
+    "/api/reviews/:key@Api@reviewDetail",
 );
 
 $post(

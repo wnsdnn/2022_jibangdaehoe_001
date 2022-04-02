@@ -22,7 +22,8 @@ class View
     function sub3Page()
     {
         $key = fetchAll("SELECT * FROM `review` ORDER BY `key` DESC");
-        view("sub3", ["key" => $key[0]->key]);
+        $lastKey = $key ? $key[0]->key : 0;
+        view("sub3", ["key" => $lastKey]);
     }
 
     function adminPage()

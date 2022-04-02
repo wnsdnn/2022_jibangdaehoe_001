@@ -126,6 +126,48 @@
                 <input type="submit" value="후기 등록">
             </form>
         </div>
+        <div class="review_datail_modal flex none">
+            <form class="flex">
+                <input type="hidden" name="key">
+                <div class="btn prev"><</div>
+                <div class="btn next">></div>
+                <div class="btn close"><i class="fa fa-close"></i></div>
+                <div class="text">
+                    <label class="name">
+                        이름
+                        <h4>aaa</h4>
+                    </label>
+                    <label class="product">
+                        구매품
+                        <h4>aaaa</h4>
+                    </label>
+                    <label class="shop">
+                        구매처
+                        <h4>aaaa</h4>
+                    </label>
+                    <label class="date">
+                        구매일
+                        <h4>aaaa</h4>
+                    </label>
+                    <label class="score">
+                        별점
+                        <h4>aaaa</h4>
+                    </label>
+                    <label class="content">
+                        내용
+                        <p>fdsafdsafds</p>
+                    </label>
+                </div>
+                <div class="photo">
+                    <div class="main">
+                        <img src="./(웹디자인)선수제공파일/특산품/사진2.jpg" alt="">
+                    </div>
+                    <div class="sub flex">
+
+                    </div>
+                </div>
+            </form>
+        </div>
     </div>
     <?php
         script("const lastKey = $key;");
