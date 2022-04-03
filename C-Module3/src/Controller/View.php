@@ -59,7 +59,8 @@ class View
             back("관리자 권한이 필요합니다.");
             return;
         }
-        view("admin_event");
+        $list = fetchAll("SELECT * FROM `event`");
+        view("admin_event", ["list" => $list]);
     }
 
     function detailPage()

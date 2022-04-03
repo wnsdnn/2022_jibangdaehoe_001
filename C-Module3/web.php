@@ -15,9 +15,13 @@ $get(
     "/api/reviews@Api@reviewListApi",
     "/api/review/:key@Api@reviewDetailApi",
 
+    "/api/event/:tel/stamps@Api@stampApi",
+
 );
 
 $post(
     "/api/reviews@Api@reviewApi",
     "/detail@View@detailProccess",
+    "/admin@View@adminProccess",
+    "/api/event/applicants@Api@eventApi",
 );

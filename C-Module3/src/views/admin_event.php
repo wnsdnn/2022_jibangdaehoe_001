@@ -47,10 +47,55 @@
         </header>
         <!-- 메인 영역 -->
         <section class="admin_event">
-
+            <form class="serch">
+                <input type="date" name="date">
+                <input type="submit" value="검색">
+            </form>
+            <table>
+                <thead>
+                    <tr>
+                        <th>이름</th>
+                        <th>휴대폰번호</th>
+                        <th>점수(찾은 카드 수)</th>
+                        <th>참여일</th>
+                        <th>연속출석일수</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach($list as $item): ?>
+                        <tr>
+                            <td><?=$item->name ?></td>
+                            <td><?=$item->tel ?></td>
+                            <td><?=$item->score ?></td>
+                            <td><?=$item->date ?></td>
+                            <td><?=$item->conDate ?></td>
+                        </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
         </section>
         <!-- 푸터 영역 -->
         <footer>
             <p>Copyright (C) Gyeongsangbuk-do. All Rights Reserved.</p>
         </footer>
+    <script>
+        const form = document.querySelector(".admin_event form");
+
+        const _formSubmit = function(e) {
+            e.preventDefault();
+            const trs = document.querySelectorAll(".admin_event tbody tr");
+            
+            trs.forEach( ele => {
+                ele.className = "";
+                if(ele.children[3].innerText != this.date.value){
+                    ele.classList.add("none");
+                }
+                if(ele.children[4].innerText >= 3) {
+                    ele.classList.add("high");
+                }
+            } )
+        };
+
+        form.addEventListener("submit", _formSubmit);
+    </script>
 </body>

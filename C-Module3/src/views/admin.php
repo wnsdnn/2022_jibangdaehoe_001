@@ -1,5 +1,5 @@
 <div class="admin_login flex">
-    <form method="post">
+    <form method="post" class="flex">
         <label>
             아이디
             <input type="text" name="id">

@@ -291,3 +291,19 @@ input[type="radio"]{display: none;}
 .detail_spe form img{object-fit: cover; width: 100%; height: 100%;}
 
 .detail_spe form input[type="submit"]{width: 100%; height: 40px; background: #fa0; border: none; color: #fff;}
+
+.admin_login{width: 100%; height: 100vh; justify-content: center; align-items: center;}
+.admin_login form{width: 370px; flex-direction: column;}
+.admin_login form label{display: block; width: 100%; margin: 10px 0;}
+.admin_login form label>*{display: block; margin: 5px 0;}
+.admin_login form label input{width: 100%; line-height: 35px;}
+.admin_login form input[type="submit"]{width: 100%; height: 40px; background: #fa0; border: none; color: #fff; cursor: pointer;}
+
+
+.admin_event{width: 1000px; margin: 0 auto; padding-top: 250px;}
+.admin_event table{width: 100%; text-align: center; border-collapse: collapse; margin: 20px 0;}
+.admin_event table tr{line-height: 45px;}
+.admin_event table thead tr{background: #fa0;}
+.admin_event table thead tr th{color: #fff;}
+
+.admin_event table tbody tr.high{border: 2px solid red;}

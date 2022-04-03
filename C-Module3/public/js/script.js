@@ -453,7 +453,7 @@ function eventPage() {
         }, sec*1000 )
     };
 
-    const _formSubmit = function(e) {
+    const _formSubmit = async function(e) {
         e.preventDefault();
         try {
             if(this.name.value.length < 2 || this.name.value.length > 50)
@@ -467,10 +467,31 @@ function eventPage() {
             return;
         }
 
-        alert("이벤트에 참여해 주셔서 감사합니다.");
-        const date = new Date();
-        addClass($stamp, "check");
-        $stamp.children[0].innerText = `${date.getFullYear()}-${date.getMonth()+1 <10 ? "0"+(date.getMonth()+1) : date.getMonth()+1}-${date.getDate() < 10 ? "0"+date.getDate() : date.getDate()}`;
+        const fData = new FormData(this);
+        const eventApi = await fetch("/api/event/applicants",{
+            method: "POST",
+            body: fData
+        }).then( res => res.json() );
+
+        alert(eventApi.message);
+         
+        const stampApi = await fetch(`/api/event/${this.tel.value}/stamps`).then( res => res.json() );
+
+        if(stampApi.message) {
+            alert(stampApi.message);
+        } else {
+            if(stampApi.stamps.length >= 3) {
+                $(".stamp-container").innerHTML = `
+                    <h4>축하합니다. 3일 연속 출석하여 경품선정 대상자가 되었습니다.</h4>
+                `;
+            } else {
+                stampApi.stamps.forEach( (ele, idx) => {
+                    addClass($(".stamp-container").children[idx], "check");
+                    $(".stamp-container").children[idx].children[0].innerText = ele;
+                } )
+            }
+        }
+
         toggleModal();
         reset();
     };

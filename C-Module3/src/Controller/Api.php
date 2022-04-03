@@ -103,4 +103,67 @@ class Api
         }
 
     }
+
+    function eventApi()
+    {
+        header("HTTP/1.1 200 OK");
+        header("Content-Type: application/json; charset=UTF-8");
+        $returnArr = (object) [];
+        extract($_POST);
+        $date = date("Y-m-d");
+
+        if( $name == "" || $tel == "" || $score == "" ){
+            header("HTTP/1.1 401");
+            $returnArr->message = "오류가 발생했습니다. 다시 시도해 주세요";
+        } else {
+            $dbCheck = fetch("SELECT * FROM `event` WHERE `tel` = ? AND `date` = ?", [$tel, $date]);
+            
+            if($dbCheck) {
+                header("HTTP/1.1 401");
+                $returnArr->message = "하루에 한번만 참여할 수 있습니다.";
+            } else {
+                $ydate = date("Y-m-d", strtotime($date."-1 day"));
+                $ydbChange = fetch("SELECT * FROM `event` WHERE `tel` = ? AND `date` = ?", [$tel, $ydate]);
+                if($ydbChange) {
+                    execute("INSERT INTO `event`(`name`, `tel`, `date`, `score`, `conDate`) VALUES (?, ?, ?, ?, ?)", [$name, $tel, $date, $score, $ydbChange->conDate+1]);
+                } else {
+                    execute("INSERT INTO `event`(`name`, `tel`, `date`, `score`, `conDate`) VALUES (?, ?, ?, ?, ?)", [$name, $tel, $date, $score, 1]);
+                }
+                $returnArr->message = "이벤트에 참여해 주셔서 감사합니다.";
+            }
+        }
+
+        echo json_encode($returnArr);
+    }
+
+    function stampApi($args)
+    {
+        header("HTTP/1.1 200 OK");
+        header("Content-Type: application/json; charset=UTF-8");
+        $returnArr = (object) [];
+        $tel = $args[1];
+        $date = date("Y-m-d");
+        
+        if( $tel == "" ) {
+            header("HTTP/1.1 200 OK");
+            $returnArr->message = "오류가 발생했습니다.";
+        } else {
+            $result = fetchAll("SELECT * FROM `event` WHERE `tel` = ? ORDER BY `date` DESC", [$tel]);
+            if(!$result) {
+                header("HTTP/1.1 404");
+                $returnArr->message = "출석정보가 없습니다.";
+            } else {
+                $count = $result[0]->conDate >= 3 ? 3 : $result[0]->conDate;
+                
+                $returnArr->stamps = [];
+                $ydate = $result[0]->date;
+                for($i = $count-1; $i >= 0; $i--) {
+                    $yydate = date("Y-m-d", strtotime($ydate."-{$i} day"));
+                    array_push($returnArr->stamps, $yydate);
+                }
+            }
+        }
+
+        echo json_encode($returnArr);
+    }
 }
