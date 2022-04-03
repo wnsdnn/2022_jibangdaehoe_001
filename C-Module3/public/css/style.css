@@ -1,0 +1,293 @@
+*{margin: 0; padding: 0; box-sizing: border-box; color: #333;}
+ul, li{list-style: none;}
+a{text-decoration: none;}
+.flex{display: flex;}
+.grid{display: grid;}
+.none{display: none;}
+input[type="radio"]{display: none;}
+
+/* 헤더 영역 */
+#app header .logo{position: fixed; width: 220px; top: 30px; left: 50px;}
+#app header .logo img{object-fit: cover; width: 100%; height: 100%;}
+
+#app header .menus{position: fixed; top: 30px; right: 90px; gap: 50px; z-index: 100;}
+#app header .menus i{display: block; color: #999; width: 40px; height: 40px;  font-size: 45px; text-align: center; cursor: pointer;}
+#app header .menus i::after{content: ""; display: block; width: 0%; height: 5px; margin: 0 auto; border-radius: 5px; background: #fa0; transition: .3s;}
+#app header .menus i:hover::after{width: 100%; transition: .3s;}
+
+#app header .menus .menu{position: relative;}
+#app header .menus .menu .menu-list{position: absolute; width: 600px; top: 0; transform: translateX(-100%);}
+#app header .menus .menu .menu-list ul{justify-content: space-around;}
+#app header .menus .menu .menu-list li{position: relative; text-align: center; top: -300px; line-height: 45px; font-size: 20px; font-weight: bold;}
+#app header .menus .menu .menu-list li.high a{color: #fa0;}
+
+#app header .menus .sns{position: relative;}
+#app header .menus .sns .sns-container img{position: absolute; object-fit: cover; top: 140%; width: 50px; height: 50px;}
+#app header .menus .sns .sns-container img:nth-child(1){left: 200px; transition: .5s;}
+#app header .menus .sns .sns-container img:nth-child(2){left: 260px; transition: .7s;}
+#app header .menus .sns .sns-container img:nth-child(3){left: 320px; transition: .9s;}
+
+#app #menu_on:checked~ header label[for="menu_on"]{display: none;}
+#app #menu_off:checked~ header label[for="menu_off"]{display: none;}
+
+#app header .menu-list li:nth-child(1){transition: .5s;}
+#app header .menu-list li:nth-child(2){transition: .7s;}
+#app header .menu-list li:nth-child(3){transition: .9s;}
+#app header .menu-list li:nth-child(4){transition: 1.1s;}
+#app header .menu-list li:nth-child(5){transition: 1.3s;}
+#app #menu_on:checked~ header .menu-list li:nth-child(1){top: 0; transition: .5s;}
+#app #menu_on:checked~ header .menu-list li:nth-child(2){top: 0; transition: .7s;}
+#app #menu_on:checked~ header .menu-list li:nth-child(3){top: 0; transition: .9s;}
+#app #menu_on:checked~ header .menu-list li:nth-child(4){top: 0; transition: 1.1s;}
+#app #menu_on:checked~ header .menu-list li:nth-child(5){top: 0; transition: 1.3s;}
+
+#app #sns_on:checked~ header label[for="sns_on"]{display: none;}
+#app #sns_off:checked~ header label[for="sns_off"]{display: none;}
+
+#app #sns_on:checked~ header .menus .sns .sns-container img:nth-child(1){left: -65px; transition: .5s; animation: sns_scr 1s .5s linear forwards;}
+#app #sns_on:checked~ header .menus .sns .sns-container img:nth-child(2){left: -5px; transition: .7s; animation: sns_scr 1s .7s linear forwards;}
+#app #sns_on:checked~ header .menus .sns .sns-container img:nth-child(3){left: 55px; transition: .9s; animation: sns_scr 1s .9s linear forwards;}
+
+@keyframes sns_scr{
+    0%{transform: scale(1);}
+    50%{transform: scale(1.15);}
+    100%{transform: scale(1);}
+}
+
+/* 메인 페이지 */
+#app section.main{width: 100%; height: calc(100vh  - 30px);}
+#app section.main .content{width: 1300px; height: 100%; margin: 0 auto; justify-content: space-around; align-items: center;}
+#app section>.side{position: fixed; top: 50%; font-size: 35px; font-weight: bold; cursor: pointer;}
+#app section>.side::before{content: ""; display: block; width: 80%; height: 8px; margin: 0 auto 10px; background: #fa0; border-radius: 5px;}
+#app section>.side.prev{left: 0; transform: rotate(-90deg);}
+#app section>.side.next{right: 0; transform: rotate(90deg);}
+
+
+#app section.main .content .item{position: relative; border: 1px solid #ddd; border-radius: 5px 5px 0 0 ; overflow: hidden;}
+#app section.main .content .item .sub-img{position: absolute; left: 5px; right: 30px; width: 45px; height: 45px; margin: 5px; z-index: 1;}
+#app section.main .content .item img{object-fit: cover; width: 100%; height: 100%;}
+#app section.main .content .item i{color: #fa0; font-size: 25px;}
+#app section.main .content .item:nth-child(2) i{font-size: 31px;}
+#app section.main .content .item .photo{width: 100%; height: 65%;}
+#app section.main .content .item .text{padding: 10px 20px;}
+#app section.main .content .item .text h3{font-size: 24px; line-height: 40px; color: #666; margin: 5px 0;}
+#app section.main .content .item .text p{font-size: 17px; color: #999; text-align: justify;}
+#app section.main .content .item>button{position: absolute; right: 10px; bottom: 5px; width: 70px; height: 35px; border: 1px solid #fa0; background: #fff; transition: .3s; cursor: pointer;}
+#app section.main .content .item>button a{color: #fa0; transition: .3s;}
+#app section.main .content .item>button:hover{background: #fa0; transition: .3s;}
+#app section.main .content .item>button:hover a{color: #fff; transition: .3s;}
+
+#app section.main .content .item:nth-child(1){animation: item-start 1s linear forwards, item-move 3s 1s linear infinite; width: 320px; height: 510px;}
+#app section.main .content .item:nth-child(2){animation: item-start 1.3s linear forwards, item-move 3s .7s linear infinite; width: 410px; height: 660px; box-shadow: 0 0 7px #999;}
+#app section.main .content .item:nth-child(3){animation: item-start 1.6s linear forwards, item-move 3s .4s linear infinite; width: 320px; height: 510px;}
+
+
+@keyframes item-start{
+    0%{top: -1800px;}
+    100%{top: 0;}
+}
+
+@keyframes item-move{
+    0%{transform: scale(1);}
+    50%{transform: scale(1.01);}
+    100%{transform: scale(1);}
+}
+
+
+/* 푸터 영역 */
+#app footer{width: 100%; height: 30px;}
+#app footer p{width: 100%; text-align: end; padding: 0 20px; color: #888; font-size: 18px;}
+
+
+#app section>h3.title{border-left: 7px solid skyblue; font-size: 35px; padding: 0 30px;}
+/* 서브1 페이지 */
+#app .specialty{width: 1000px; margin: 0 auto; padding: 150px 0 200px; overflow: hidden;}
+#app .specialty .map{position: relative; width: 100%; margin: 70px auto 0;}
+/* #app .specialty .map svg{display: block;} */
+#app .specialty .area-list li{position: absolute; color: #333; left: 0; top: 0; font-size: 20px; transition: .5s; cursor: pointer;}
+#app .specialty .area-list li:hover{color: #fa0; transition: .5s;}
+#app .specialty .area-list li:hover > .area-content{top: 120%; transition: .5s;}
+
+#app .specialty .area-list li .area-content{position: absolute; width: 200px; border: 1px solid #eee; top: 2000px; padding: 10px; border-radius: 5px; background: #fff; transition: .5s;}
+#app .specialty .area-list li .area-content .photo{margin: 0 0 5px;}
+#app .specialty .area-list li .area-content .specialty-container{grid-template-columns: repeat(2, 1fr); gap: 5px;}
+#app .specialty .area-list li .area-content .specialty-container .item{font-size: 13px;}
+#app .specialty .area-list li .area-content .specialty-container .item::before{content: "특산품"; margin-right: 5px; background: #fa0; color: #fff;}
+#app .specialty .area-list li .area-content img{object-fit: cover; width: 100%; height: 100%;}
+
+
+#app .specialty .area-list li:nth-child(1){left: 55%; top: 52%;}
+#app .specialty .area-list li:nth-child(2){left: 28%; top: 55%;}
+#app .specialty .area-list li:nth-child(3){left: 40%; top: 84%;}
+#app .specialty .area-list li:nth-child(4){left: 23%; top: 65%;}
+#app .specialty .area-list li:nth-child(5){left: 68%; top: 49%;}
+#app .specialty .area-list li:nth-child(6){left: 63%; top: 32%;}
+#app .specialty .area-list li:nth-child(7){left: 57%; top: 80%;}
+#app .specialty .area-list li:nth-child(8){left: 79%; top: 39%;}
+#app .specialty .area-list li:nth-child(9){left: 36%; top: 40%;}
+#app .specialty .area-list li:nth-child(10){left: 44%; top: 49%;}
+#app .specialty .area-list li:nth-child(11){left: 47%; top: 30%;}
+#app .specialty .area-list li:nth-child(12){left: 39%; top: 69%;}
+#app .specialty .area-list li:nth-child(13){left: 18%; top: 89%;}
+#app .specialty .area-list li:nth-child(14){left: 10%; top: 62%;}
+#app .specialty .area-list li:nth-child(15){left: 15%; top: 42%;}
+#app .specialty .area-list li:nth-child(16){left: 5%; top: 25%;}
+#app .specialty .area-list li:nth-child(17){left: 15%; top: 12%;}
+#app .specialty .area-list li:nth-child(18){left: 28%; top: 28%;}
+
+
+
+
+
+/* 서브2 페이지 */
+#app section.event{width: 1250px; margin: 0 auto; padding: 150px 0 0;}
+#app section.event .high{color: rgb(221, 121, 129); font-weight: bold;}
+#app section.event .anno{position: relative; width: 100%; margin: 50px 0;}
+#app section.event .anno>img{position: absolute; object-fit: cover; width: 450px; bottom: -120px; right: -60px; transition: .5s; cursor: pointer;}
+#app section.event .anno>img:hover{transform: scale(1.02); transition: .5s;}
+#app section.event .anno fieldset{padding: 15px 30px; border-style: dashed;}
+#app section.event .anno fieldset p{font-size: 18px; margin: 5px 0;}
+#app section.event .anno fieldset ul{margin: 10px 0; padding: 10px 0;}
+#app section.event .anno fieldset ul li{line-height: 25px; font-size: 16px;}
+#app section.event .anno fieldset legend{margin: 0 auto; font-size: 30px; font-weight: bold; padding: 0 20px;}
+
+#app section.event .game{width: 80%; margin: 200px auto 0;}
+#app section.event .game>h3{font-size: 30px; margin: 30px 0;}
+#app section.event .game>h3 i{color: #fa0;}
+#app section.event .game .card-container{width: 100%; border: 1px solid #ddd; padding: 30px; grid-template-columns: repeat(4, 1fr); gap: 20px;}
+#app section.event .game .card-container .card{position: relative; width: 150px; height: 200px; margin: 0 auto; border-radius: 5px;}
+#app section.event .game .card-container .card .item{position: absolute; width: 100%; height: 100%; line-height: 200px; text-align: center; cursor: pointer;}
+#app section.event .game .card-container .card .item i{font-size: 30px; color: #666;}
+
+#app section.event .game .card-container .card .front img{object-fit: cover; width: 100%; height: 100%;}
+#app section.event .game .card-container .card .front .text{position: absolute; top: 0; left: 0; width: 100%; height: 100%; align-items: center;}
+#app section.event .game .card-container .card .front .text h4{width: 100%; line-height: 40px; height: 40px; margin-top: 70px; color: #fff; font-size: 20px; background: rgba(0, 0, 0, .2);}
+
+
+#app section.event .card{perspective: 300px; border-radius: 5px;}
+#app section.event .card .item{transition: .7s; backface-visibility: hidden; border-radius: 5px; overflow: hidden;}
+#app section.event .card .front{transform: rotateY(180deg);}
+#app section.event .card .front h4{display: none;}
+#app section.event .card .back{transform: rotateY(0deg); background: #eee;}
+
+#app section.event .card.active .front{transform: rotateY(0deg);}
+#app section.event .card.active .back{transform: rotateY(-180deg);}
+
+#app section.event .card.success .front{transform: rotateY(0deg);}
+#app section.event .card.success .front h4{display: block !important;}
+#app section.event .card.success .back{transform: rotateY(-180deg);}
+
+#app section.event .card.end.success{border: 4px solid green;}
+#app section.event .card.end .front h4{display: block !important;}
+#app section.event .card.end{border: 4px solid red;}
+
+
+
+
+
+#app section.event .display{width: 100%; padding: 10px 20px; flex-direction: column; align-items: flex-end;}
+#app section.event .display .time{font-size: 20px; font-weight: bold; margin-bottom: 10px;}
+#app section.event .display .score-box{font-size: 18px;}
+
+#app section.event .btns{width: 100%; justify-content: center; gap: 30px; padding: 30px 0;}
+#app section.event .btns button{width: 110px; height: 45px; background: #fff; color: #fa0; font-size: 17px; border: 1px solid #fa0; font-weight: bold; cursor: pointer; transition: .3s;}
+#app section.event .btns button:hover{background: #fa0; color: #fff; transition: .3s;}
+
+#app section.event .stamp{width: 100%; margin: 50px 0 30px;}
+#app section.event .stamp h3{text-align: center; margin: 20px 0; font-size: 40px;}
+#app section.event .stamp .stamp-container{width: 100%; height: 250px; background-color: #eee; justify-content: center; align-items: center; gap: 30px;}
+#app section.event .stamp .stamp-container .item{width: 180px; height: 180px; border: 4px dashed #333; border-radius: 100%; transform: rotate(10deg); justify-content: center; align-items: center;}
+#app section.event .stamp .stamp-container .item h4{width: 100%; line-height: 45px; text-align: center; border: 4px dashed #333; border-left: none; border-right: none; font-size: 19px;}
+
+#app section.event .stamp .stamp-container .item.check{border-color: red;}
+#app section.event .stamp .stamp-container .item.check h4{border-color: red; color: red;}
+
+/* 서브3 페이지 */
+#app section.review{width: 100%; padding: 150px 0 0;}
+#app section.review .add_review{position: fixed; width: 110px; height: 40px; left: 70px; top: 180px; border: #fa0; background: #fa0; font-size: 17px; color: #fff; cursor: pointer; transition: .3s;}
+#app section.review .add_review:hover{background: rgb(224, 150, 0); transition: .3s;}
+
+#app section.review .high{color: rgb(235, 101, 112);}
+#app section.review>h3.title{width: 1200px; margin: 30px auto;}
+#app section.review .anno{width: 1100px; margin: 0 auto;}
+#app section.review .anno fieldset{align-items: center; justify-content: space-around; padding: 0 20px;}
+#app section.review .anno fieldset legend{font-size: 28px; font-weight: bold; margin: 0 auto; padding: 0 20px;}
+#app section.review .anno fieldset .sub-img{object-fit: cover; width: 180px; height: 180px;}
+#app section.review .anno fieldset p{width: 60%; font-size: 17px; font-weight: bold; line-height: 30px;}
+
+#app section.review .review-container{width: 70%; margin: 120px auto 0; grid-template-columns: repeat(4, 1fr); gap: 35px;}
+#app section.review .review-container .item{position: relative; width: 320px; height: auto; padding: 20px 25px; border: 1px solid #ddd; border-radius: 5px; cursor: pointer;}
+#app section.review .review-container .item .name{display: inline; width: 90px; padding: 3px 10px; text-align: center; background: skyblue; border-radius: 5px; color: #fff;}
+#app section.review .review-container .item .date{position: absolute; top: 20px; right: 20px; font-weight: bold; color: #ddd;}
+#app section.review .review-container .item .photo{width: 100%; height: 190px; margin: 20px 0 5px; border-radius: 3px;}
+#app section.review .review-container .item .score-container{padding: 5px 0;}
+#app section.review .review-container .item i{color: skyblue; font-size: 17px;}
+#app section.review .review-container .item p{width: 100%; line-height: 25px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;}
+#app section.review .review-container .item img{object-fit: cover; width: 100%; height: 100%;}
+
+
+/* 기타 */
+.review_modal{position: fixed; width: 100%; height: 100%; left: 0; top: 0; justify-content: center; align-items: center; background: rgba(0, 0, 0, 0.7); z-index: 105;}
+.review_modal form{position: relative; width: 800px; border-radius: 5px; padding: 30px; background: #fff; grid-template-columns: repeat(2, 1fr); gap: 30px;}
+.review_modal form label{width: 80%; margin: 0 auto;}
+.review_modal form label>*{width: 100%; display: block; margin: 5px 0;}
+.review_modal form label input{width: 100%; height: 35px;}
+.review_modal form label textarea{resize: none; height: 100%;}
+.review_modal form button{width: 70px; height: 30px;}
+.review_modal form label .score_container{position: relative; width: 200px; height: 40px; line-height: 40px; margin: 10px 0; text-align: center;}
+.review_modal form label .score_container i{width: 40px; height: 40px; font-size: 40px; color: #fa0;}
+
+.review_modal form .close{position: absolute; top: 15px; right: 15px; border: none; background: #fa0; color: #fff; cursor: pointer;}
+.review_modal form input[type="submit"]{width: 90px; height: 35px; border: none; background: #fa0; color: #fff; position: absolute; bottom: 25px; right: 15px; cursor: pointer;}
+
+
+
+.event_modal{position: fixed; width: 100%; height: 100%; left: 0; top: 0; justify-content: center; align-items: center; background: rgba(0, 0, 0, .7); z-index: 105;}
+.event_modal form{width: 400px; padding: 50px 20px; background: #fff; flex-direction: column;}
+.event_modal form label{width: 80%; margin: 0 auto;}
+.event_modal form label>*{display: block;}
+.event_modal form label input{width: 100%; height: 40px; margin: 5px 0;}
+.event_modal form input[type="submit"]{width: 80%; height: 40px; margin: 20px auto;}
+
+
+
+
+.review_detail_modal{position: fixed; width: 100%; height: 100%; left: 0; top: 0; justify-content: center; align-items: center; background: rgba(0, 0, 0, .7);}
+.review_detail_modal form{position: relative; width: 1200px; height: 600px;justify-content: space-around; background: #fff; border-radius: 5px; padding: 70px 50px 50px;}
+.review_detail_modal form .close{position: absolute; font-size: 40px; top: 10px; right: 20px;}
+.review_detail_modal form .btn{position: absolute; font-size: 40px; top: 10px;}
+.review_detail_modal form .next{right: 60px;}
+.review_detail_modal form .prev{right: 100px;}
+
+.review_detail_modal form .text{width: 40%;}
+.review_detail_modal form label{display: block; width: 100%; margin: 15px 0;}
+.review_detail_modal form label>*{display: block; margin: 5px 0;}
+.review_detail_modal form label p{width: 100%; height: 130px; overflow: scroll;}
+
+.review_detail_modal form .photo{width: 45%;}
+.review_detail_modal form .photo .main{width: 100%; height: 80%;}
+.review_detail_modal form .photo .sub{width: 100%; height: 20%;}
+.review_detail_modal form .photo .sub img{width: calc(100% / 5); height: 100%;}
+.review_detail_modal form img{object-fit: cover; width: 100%; height: 100%;}
+
+
+.admin_specialty{width: 1200px; margin: 0 auto; padding-top: 150px; grid-template-columns: repeat(4, 1fr); gap: 30px;}
+.admin_specialty .item{position: relative; width: auto; height: 350px; border: 1px solid #ccc;}
+.admin_specialty .item .photo{width: 100%; height: 74%;}
+.admin_specialty .item .text{padding: 10px;}
+.admin_specialty .item button{position: absolute; width: 70px; background: #fa0; border: none; height: 30px; right: 10px; bottom: 10px; cursor: pointer;}
+.admin_specialty .item button a{display: block; color: #fff;}
+
+.admin_specialty img{object-fit: cover; width: 100%; height: 100%;}
+
+
+
+.detail_spe{width: 100%; height: 100vh; justify-content: center; align-items: center;}
+.detail_spe form{width: 400px; flex-direction: column; gap: 10px;}
+.detail_spe form h3{font-size: 22px;}
+.detail_spe form label{display: block; width: 100%;}
+.detail_spe form label>*{display: block;}
+.detail_spe form label input{width: 100%; height: 30px; margin: 5px 0;}
+.detail_spe form img{object-fit: cover; width: 100%; height: 100%;}
+
+.detail_spe form input[type="submit"]{width: 100%; height: 40px; background: #fa0; border: none; color: #fff;}
